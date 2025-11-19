@@ -1,0 +1,1514 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Espacios de Conservación</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #00a896;
+      --primary-light: #02c39a;
+      --primary-dark: #028090;
+      --secondary: #05668d;
+      --secondary-light: #028090;
+      --accent: #f0a202;
+      --accent-light: #f1c453;
+      --warning: #f25f5c;
+      --dark: #2b2d42;
+      --dark-light: #4a4e69;
+      --light: #f8f9fa;
+      --gray: #8d99ae;
+      --gray-light: #edf2f4;
+      --white: #ffffff;
+      --black: #1a1a1a;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.12);
+      --shadow-md: 0 4px 6px rgba(0,0,0,0.1);
+      --shadow-lg: 0 10px 25px rgba(0,0,0,0.1);
+      --shadow-xl: 0 20px 40px rgba(0,0,0,0.15);
+      --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --radius-xl: 24px;
+      --radius-full: 9999px;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: var(--light);
+      color: var(--dark);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    header {
+      background: var(--white);
+      padding: 15px 0;
+      box-shadow: var(--shadow-lg);
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .header-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 1.3rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--dark);
+      text-decoration: none;
+    }
+
+    .main-content {
+      margin-top: 90px;
+      padding: 20px 0;
+      min-height: calc(100vh - 90px);
+    }
+
+    .infographic-container {
+      position: relative;
+      width: 100%;
+      height: 80vh;
+      min-height: 600px;
+      background-color: var(--white);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-lg);
+      overflow: hidden;
+      margin-bottom: 30px;
+    }
+
+    .video-container {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    #infographic-video {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      background-color: #000;
+    }
+
+    .video-controls {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 10px;
+      background: rgba(0,0,0,0.7);
+      padding: 10px 15px;
+      border-radius: var(--radius-full);
+      z-index: 10;
+    }
+
+    .video-controls .btn {
+      font-size: 0.8rem;
+      padding: 8px 12px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 20px;
+      border-radius: var(--radius-md);
+      font-weight: 600;
+      text-decoration: none;
+      transition: var(--transition);
+      border: none;
+      cursor: pointer;
+      font-size: 0.9rem;
+      gap: 8px;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: var(--white);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-light);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .btn-secondary {
+      background: var(--gray-light);
+      color: var(--dark);
+      border: 1px solid var(--gray);
+    }
+
+    .btn-secondary:hover {
+      background: var(--gray);
+      color: var(--white);
+    }
+
+    .btn-accent {
+      background: var(--accent);
+      color: var(--white);
+    }
+
+    .btn-accent:hover {
+      background: var(--accent-light);
+    }
+
+    .hotspot {
+      position: absolute;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background-color: rgba(242, 162, 2, 0.3);
+      border: 2px solid var(--accent);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: var(--transition);
+      z-index: 20;
+      animation: pulse 2s infinite;
+      display: none;
+    }
+
+    .hotspot::after {
+      content: '';
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background-color: var(--accent);
+      transition: var(--transition);
+    }
+
+    .hotspot:hover {
+      transform: scale(1.2);
+      animation: none;
+    }
+
+    .hotspot-label {
+      position: absolute;
+      top: -30px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--white);
+      padding: 5px 12px;
+      border-radius: var(--radius-full);
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--dark);
+      box-shadow: var(--shadow-sm);
+      opacity: 0;
+      transition: var(--transition);
+      white-space: nowrap;
+    }
+
+    .hotspot:hover .hotspot-label {
+      opacity: 1;
+      top: -35px;
+    }
+
+    /* Estilos para estructuras clave */
+    .structure {
+      position: absolute;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background-color: rgba(0, 168, 150, 0.3);
+      border: 2px solid var(--primary);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: var(--transition);
+      z-index: 20;
+      animation: pulse-blue 2s infinite;
+      display: none;
+    }
+
+    .structure::after {
+      content: '';
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background-color: var(--primary);
+      transition: var(--transition);
+    }
+
+    .structure:hover {
+      transform: scale(1.2);
+      animation: none;
+    }
+
+    .structure-label {
+      position: absolute;
+      top: -30px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--white);
+      padding: 5px 12px;
+      border-radius: var(--radius-full);
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--dark);
+      box-shadow: var(--shadow-sm);
+      opacity: 0;
+      transition: var(--transition);
+      white-space: nowrap;
+    }
+
+    .structure:hover .structure-label {
+      opacity: 1;
+      top: -35px;
+    }
+
+    @keyframes pulse-blue {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.05); opacity: 0.8; }
+    }
+
+    .info-panel {
+      position: absolute;
+      width: 400px;
+      max-height: 80vh;
+      background: var(--white);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-xl);
+      overflow: hidden;
+      z-index: 30;
+      opacity: 0;
+      pointer-events: none;
+      transition: var(--transition);
+    }
+
+    .info-panel.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .panel-header {
+      background: var(--primary);
+      color: var(--white);
+      padding: 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .panel-title {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1.2rem;
+      margin-bottom: 5px;
+    }
+
+    .panel-subtitle {
+      font-size: 0.8rem;
+      opacity: 0.9;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .close-panel {
+      background: none;
+      border: none;
+      color: var(--white);
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .close-panel:hover {
+      transform: rotate(90deg);
+    }
+
+    .panel-body {
+      padding: 15px;
+      max-height: 60vh;
+      overflow-y: auto;
+    }
+
+    .panel-section {
+      margin-bottom: 15px;
+      padding: 10px;
+      border-radius: var(--radius-sm);
+      background-color: var(--gray-light);
+    }
+
+    .panel-section-title {
+      font-size: 1rem;
+      color: var(--primary-dark);
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .panel-media {
+      width: 100%;
+      height: 180px;
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      margin-bottom: 15px;
+      background-color: #000;
+    }
+
+    .panel-media img, .panel-media video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .panel-list {
+      padding-left: 20px;
+      font-size: 0.9rem;
+    }
+
+    .panel-list li {
+      margin-bottom: 8px;
+    }
+
+    .tools-panel {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      background: rgba(255, 255, 255, 0.85); /* Transparencia mejorada */
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-md);
+      padding: 12px;
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      min-width: 180px; /* Reducido para ahorrar espacio */
+      backdrop-filter: blur(5px); /* Efecto de desenfoque para mejor legibilidad */
+      border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .tool-btn {
+      width: 100%;
+      padding: 10px 12px; /* Reducido para ahorrar espacio */
+      border-radius: var(--radius-md);
+      background: rgba(255, 255, 255, 0.7);
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      transition: var(--transition);
+      font-size: 0.85rem; /* Reducido para ahorrar espacio */
+      font-weight: 500;
+      gap: 8px;
+    }
+
+    .tool-btn:hover {
+      background: var(--primary);
+      color: var(--white);
+      transform: translateY(-2px);
+    }
+
+    .tool-btn.active {
+      background: var(--primary);
+      color: var(--white);
+    }
+
+    .tool-btn-text {
+      white-space: nowrap;
+    }
+
+    .info-text {
+      font-size: 0.75rem; /* Reducido para ahorrar espacio */
+      color: var(--dark-light);
+      text-align: center;
+      margin-top: 8px;
+      padding-top: 8px;
+      border-top: 1px solid rgba(0, 0, 0, 0.1);
+      line-height: 1.3;
+    }
+
+    .page-title {
+      text-align: center;
+      margin-bottom: 20px;
+      padding: 0 20px;
+    }
+
+    .page-title h1 {
+      font-size: 2rem;
+      color: var(--primary-dark);
+      margin-bottom: 10px;
+      font-weight: 700;
+    }
+
+    .page-title p {
+      font-size: 1.2rem;
+      color: var(--dark-light);
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .sound-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 100;
+      color: white;
+      font-size: 1.2rem;
+      text-align: center;
+      cursor: pointer;
+    }
+
+    .sound-overlay.hidden {
+      display: none;
+    }
+
+    .steps-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 40;
+      opacity: 0;
+      pointer-events: none;
+      transition: var(--transition);
+    }
+
+    .steps-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .steps-image {
+      max-width: 90%;
+      max-height: 90%;
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-xl);
+    }
+
+    .close-steps {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: var(--white);
+      color: var(--dark);
+      border: none;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 1.2rem;
+      transition: var(--transition);
+    }
+
+    .close-steps:hover {
+      background: var(--primary);
+      color: var(--white);
+    }
+
+    .footer {
+      background: var(--dark);
+      color: var(--white);
+      padding: 20px 0;
+      text-align: center;
+      font-size: 0.9rem;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.05); opacity: 0.8; }
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .infographic-container {
+        height: 60vh;
+        min-height: 400px;
+      }
+      
+      .info-panel {
+        width: 90%;
+        right: 5%;
+        top: 10px;
+      }
+      
+      .tools-panel {
+        flex-direction: row;
+        bottom: 10px;
+        top: auto;
+        left: 50%;
+        transform: translateX(-50%);
+        min-width: auto;
+        width: 90%;
+        background: rgba(255, 255, 255, 0.95); /* Más opaco en móvil */
+      }
+
+      .page-title h1 {
+        font-size: 1.5rem;
+      }
+
+      .page-title p {
+        font-size: 1rem;
+      }
+      
+      .video-controls {
+        flex-wrap: wrap;
+        justify-content: center;
+        width: 90%;
+      }
+      
+      .video-controls .btn {
+        font-size: 0.7rem;
+        padding: 6px 10px;
+      }
+      
+      .tool-btn {
+        padding: 8px 10px;
+        font-size: 0.8rem;
+        justify-content: center;
+      }
+      
+      .info-text {
+        display: none;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .infographic-container {
+        height: 50vh;
+      }
+
+      .page-title h1 {
+        font-size: 1.3rem;
+      }
+
+      .page-title p {
+        font-size: 0.9rem;
+      }
+      
+      .tools-panel {
+        flex-direction: row;
+        bottom: 10px;
+        top: auto;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+      
+      .video-controls {
+        bottom: 60px;
+      }
+      
+      .tool-btn {
+        padding: 6px 8px;
+        font-size: 0.7rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container header-container">
+      <!-- Encabezado limpio sin texto -->
+    </div>
+  </header>
+
+  <main class="main-content">
+    <div class="container">
+      <div class="page-title">
+        <h1>Espacios de Conservación en agroecosistemas de la Región Pampeana</h1>
+        <p>Herramienta interactiva para la identificación, diseño y gestión de espacios para la biodiversidad y la sustentabilidad productiva</p>
+      </div>
+      
+      <div class="infographic-container">
+        <div class="video-container" id="video-container">
+          <video id="infographic-video" autoplay muted preload="auto">
+            <source src="video.mp4" type="video/mp4">
+            Tu navegador no soporta el video.
+          </video>
+          
+          <!-- Overlay para activar sonido -->
+          <div class="sound-overlay" id="sound-overlay">
+            <div>
+              <i class="fas fa-volume-mute" style="font-size: 3rem; margin-bottom: 20px;"></i>
+              <p>Toca para activar el sonido</p>
+            </div>
+          </div>
+          
+          <!-- Hotspots con posiciones fijas (en porcentajes) -->
+          <div class="hotspot" data-id="parque">
+            <span class="hotspot-label">Parque</span>
+          </div>
+          <div class="hotspot" data-id="refugio">
+            <span class="hotspot-label">Refugio</span>
+          </div>
+          <div class="hotspot" data-id="bordes">
+            <span class="hotspot-label">Bordes</span>
+          </div>
+          <div class="hotspot" data-id="franja">
+            <span class="hotspot-label">Franja</span>
+          </div>
+          <div class="hotspot" data-id="camino">
+            <span class="hotspot-label">Camino</span>
+          </div>
+          <div class="hotspot" data-id="vias-ferreas">
+            <span class="hotspot-label">Vías férreas</span>
+          </div>
+          <div class="hotspot" data-id="cortinas">
+            <span class="hotspot-label">Cortinas</span>
+          </div>
+          <div class="hotspot" data-id="cercos">
+            <span class="hotspot-label">Cercos</span>
+          </div>
+          <div class="hotspot" data-id="parche-natural">
+            <span class="hotspot-label">Parche natural</span>
+          </div>
+          <div class="hotspot" data-id="area-natural">
+            <span class="hotspot-label">Área natural</span>
+          </div>
+          <div class="hotspot" data-id="riberenos">
+            <span class="hotspot-label">Ribereños</span>
+          </div>
+          <div class="hotspot" data-id="bosque-nativo">
+            <span class="hotspot-label">Bosque nativo</span>
+          </div>
+          
+          <!-- Estructuras clave -->
+          <div class="structure" data-id="caja-nido">
+            <span class="structure-label">Caja nido</span>
+          </div>
+          <div class="structure" data-id="poste-luz">
+            <span class="structure-label">Poste de luz</span>
+          </div>
+          <div class="structure" data-id="poste-alambrado">
+            <span class="structure-label">Poste de alambrado</span>
+          </div>
+          <div class="structure" data-id="troncos-secos">
+            <span class="structure-label">Troncos secos</span>
+          </div>
+          
+          <!-- Panel de información -->
+          <div class="info-panel" id="info-panel">
+            <div class="panel-header">
+              <div>
+                <h3 class="panel-title" id="panel-title"></h3>
+                <div class="panel-subtitle" id="panel-subtitle">
+                  <i class="fas fa-tag"></i> <span id="panel-category"></span>
+                </div>
+              </div>
+              <button class="close-panel" id="close-panel">&times;</button>
+            </div>
+            <div class="panel-body">
+              <div class="panel-media" id="panel-media">
+                <video id="panel-video" width="100%" muted loop preload="none">
+                  Tu navegador no soporta el elemento de video.
+                </video>
+              </div>
+              
+              <div class="panel-section">
+                <h4 class="panel-section-title">
+                  <i class="fas fa-align-left"></i> Descripción
+                </h4>
+                <p id="panel-text"></p>
+              </div>
+              
+              <div class="panel-section">
+                <h4 class="panel-section-title">
+                  <i class="fas fa-list-ul"></i> Características
+                </h4>
+                <p id="panel-characteristics"></p>
+              </div>
+              
+              <div class="panel-section">
+                <h4 class="panel-section-title">
+                  <i class="fas fa-tractor"></i> Beneficios para la producción
+                </h4>
+                <ul class="panel-list" id="panel-benefits-production"></ul>
+              </div>
+              
+              <div class="panel-section">
+                <h4 class="panel-section-title">
+                  <i class="fas fa-leaf"></i> Beneficios para la biodiversidad
+                </h4>
+                <ul class="panel-list" id="panel-benefits-nature"></ul>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Overlay para pasos -->
+          <div class="steps-overlay" id="steps-overlay">
+            <img src="pasos.jpg" alt="Pasos para la conservación" class="steps-image" id="steps-image">
+            <button class="close-steps" id="close-steps">&times;</button>
+          </div>
+        </div>
+        
+        <!-- Panel de herramientas mejorado con transparencia -->
+        <div class="tools-panel">
+          <button class="tool-btn" id="conservation-tool" title="Espacios de Conservación">
+            <i class="fas fa-tree"></i>
+            <span class="tool-btn-text">Espacios</span>
+          </button>
+          <button class="tool-btn" id="structures-tool" title="Estructuras clave">
+            <i class="fas fa-feather-alt"></i>
+            <span class="tool-btn-text">Estructuras</span>
+          </button>
+          <button class="tool-btn" id="steps-tool" title="Pasos">
+            <i class="fas fa-footsteps"></i>
+            <span class="tool-btn-text">Pasos</span>
+          </button>
+          
+          <div class="info-text">
+            Haz clic en cada espacio para más información
+          </div>
+        </div>
+        
+        <div class="video-controls">
+          <button class="btn btn-sm btn-primary" id="play-pause-btn" title="Reproducir/Pausar introducción">
+            <i class="fas fa-play"></i> Intro
+          </button>
+          <button class="btn btn-sm btn-accent" id="volume-btn" title="Volumen">
+            <i class="fas fa-volume-up"></i>
+          </button>
+          <button class="btn btn-sm btn-secondary" id="skip-to-end-btn">
+            <i class="fas fa-fast-forward"></i> Infografía
+          </button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <p>Versión preliminar – Consultoría BID RG-T4260-P003<br>Estudio Espacios de Conservación en Agroecosistemas</p>
+    </div>
+  </footer>
+
+  <script>
+    // POSICIONES ABSOLUTAS DE LOS HOTSPOTS (basadas en el video original)
+    const hotspotPositions = {
+      parque: { x: 0.25, y: 0.30 },
+      refugio: { x: 0.20, y: 0.35 },
+      bordes: { x: 0.20, y: 0.85 },
+      franja: { x: 0.65, y: 0.40 },
+      camino: { x: 0.45, y: 0.70 },
+      "vias-ferreas": { x: 0.80, y: 0.35 },
+      cortinas: { x: 0.45, y: 0.28 },
+      cercos: { x: 0.55, y: 0.45 },
+      "parche-natural": { x: 0.65, y: 0.35 },
+      "area-natural": { x: 0.70, y: 0.25 },
+      riberenos: { x: 0.80, y: 0.45 },
+      "bosque-nativo": { x: 0.60, y: 0.25 }
+    };
+
+    // POSICIONES DE LAS ESTRUCTURAS CLAVE - CORREGIDA "caja-nido"
+    const structurePositions = {
+      "caja-nido": { x: 0.15, y: 0.60 }, // Cambiada de 0.15 a 0.60 para bajar la posición
+      "poste-luz": { x: 0.10, y: 0.60 },
+      "poste-alambrado": { x: 0.50, y: 0.55 },
+      "troncos-secos": { x: 0.75, y: 0.70 }
+    };
+
+    // Datos para las estructuras clave (información breve)
+    const structureData = {
+      "caja-nido": {
+        titulo: "Caja nido",
+        descripcion: "Estructuras artificiales que proveen sitios de nidificación para aves, favoreciendo su reproducción y control de plagas."
+      },
+      "poste-luz": {
+        titulo: "Poste de luz",
+        descripcion: "Estructuras que sirven como posaderos para aves rapaces, facilitando el control natural de roedores y otras plagas."
+      },
+      "poste-alambrado": {
+        titulo: "Poste de alambrado",
+        descripcion: "Postes que pueden servir como perchas para aves y puntos de observación para control biológico de plagas."
+      },
+      "troncos-secos": {
+        titulo: "Troncos secos",
+        descripcion: "Árboles muertos en pie o caídos que proveen hábitat para insectos, hongos y pequeños vertebrados."
+      }
+    };
+
+    const dataMap = {
+      parque: {
+        titulo: "Parques o áreas multifunción",
+        categoria: "Espacio Seminatural | Areal",
+        texto: "Áreas pequeñas (0,25-2 ha) integradas en el establecimiento con vegetación natural o cultivada que cumplen múltiples funciones ecológicas y productivas.",
+        caracteristicas: "Forma poligonal. Ubicación: casco, vivero, monte frutal, huerta. Combinación de especies vegetales nativas o exóticas que pueden albergar fauna nativa con manejo especial.",
+        beneficiosProduccion: [
+          "Provisión de flora de interés apícola",
+          "Refugio para insectos benéficos",
+          "Bienestar animal por provisión de sombra",
+          "Reserva de plantas y semillas nativas"
+        ],
+        beneficiosNaturaleza: [
+          "Provisión de hábitat para insectos, aves y mamíferos pequeños",
+          "Reservorio de flora nativa",
+          "Posaderos para aves dispersoras de semillas",
+          "Recursos florales para polinizadores"
+        ],
+        video: "parque.mp4",
+        image: "parque.jpg"
+      },
+      refugio: {
+        titulo: "Parche Seminatural (Refugio)",
+        categoria: "Espacio Seminatural | Areal",
+        texto: "Área pequeña (<1 ha) dentro del establecimiento con vegetación espontánea nativa o exótica que proporciona refugio a la fauna benéfica.",
+        caracteristicas: "Forma poligonal. Ubicación: taperas, aguadas, tajamares, tanques australianos. Vegetación espontánea que se mantiene sin intervención o con manejo mínimo.",
+        beneficiosProduccion: [
+          "Distracción de fauna silvestre sobre cultivos",
+          "Refugio para insectos benéficos",
+          "Reserva de vegetación para forrajeo",
+          "Control natural de plagas"
+        ],
+        beneficiosNaturaleza: [
+          "Ambientes de resguardo temporal para fauna",
+          "Hábitat para insectos y pequeños vertebrados",
+          "Conservación de vegetación espontánea",
+          "Sitios de reproducción"
+        ],
+        video: "refugio.mp4",
+        image: "refugio.jpg"
+      },
+      bordes: {
+        titulo: "Bordes de cultivo o alambrado",
+        categoria: "Espacio Seminatural | Corredor Lineal",
+        texto: "Franja de vegetación nativa o espontánea en bordes de cultivos o alambrados que generan hábitat y conectividad para la biodiversidad.",
+        caracteristicas: "Forma lineal. Ancho: 3-6 m. Ubicación: bordes perimetrales o callejones centrales entre lotes. Pueden sembrarse con especies entomófilas nativas y no nativas.",
+        beneficiosProduccion: [
+          "Separación de ambientes productivos",
+          "Presencia de especies que atraen polinizadores",
+          "Control de erosión por reducción de escorrentía",
+          "Filtrado de sedimentos y contaminantes"
+        ],
+        beneficiosNaturaleza: [
+          "Conectividad entre hábitats fragmentados",
+          "Recursos florales para polinizadores",
+          "Hábitat lineal para insectos y pequeños vertebrados",
+          "Corredor para movimiento de especies"
+        ],
+        video: "bordes.mp4",
+        image: "bordes.jpg"
+      },
+      franja: {
+        titulo: "Franja vegetada o natural",
+        categoria: "Espacio Seminatural | Corredor Lineal",
+        texto: "Franjas con vegetación espontánea o implantada en lotes de cultivos que aportan biodiversidad y servicios ecosistémicos.",
+        caracteristicas: "Forma lineal. Ancho: 6-12 m, longitud: 200-400 m. Ubicación: límites o interior de lotes, asociadas a zonas de drenaje. Pueden tener vegetación espontánea o implantada con especies forrajeras y melíferas.",
+        beneficiosProduccion: [
+          "Reducción del tamaño de lotes para manejo eficiente",
+          "Atracción de polinizadores que incrementan rendimientos",
+          "Control natural de plagas",
+          "Protección contra vientos"
+        ],
+        beneficiosNaturaleza: [
+          "Conectividad entre espacios de conservación",
+          "Recursos florales para polinizadores",
+          "Hábitat para insectos benéficos",
+          "Disminución de fragmentación"
+        ],
+        video: "franja.mp4",
+        image: "franja.jpg"
+      },
+      camino: {
+        titulo: "Bordes de caminos rurales",
+        categoria: "Espacio Seminatural | Corredor Lineal",
+        texto: "Veredas o préstamos de caminos con vegetación espontánea que pueden formar pequeños humedales temporarios y funcionan como corredores lineales clave.",
+        caracteristicas: "Forma lineal. Ancho variable: 2-40 m. Ubicación: espacio entre cuneta y alambrados. Pueden enriquecerse con especies nativas acordes al ambiente. Según relieve, pueden formar humedales temporarios con vegetación ribereña.",
+        beneficiosProduccion: [
+          "Protección de la infraestructura vial",
+          "Control de erosión por desaceleración del agua",
+          "Filtrado de aguas de escorrentía",
+          "Posible aprovechamiento de flora melífera"
+        ],
+        beneficiosNaturaleza: [
+          "Conectividad lineal a lo largo de grandes distancias",
+          "Formación de microhumedales temporarios",
+          "Refugio para especies asociadas a ambientes acuáticos",
+          "Corredor para dispersión de flora y fauna"
+        ],
+        video: "camino.mp4",
+        image: "camino.jpg"
+      },
+      "vias-ferreas": {
+        titulo: "Terraplén o vías férreas",
+        categoria: "Espacio Seminatural | Corredor Lineal",
+        texto: "Franja vegetada a lo largo de las vías del tren que funcionan como refugio para fauna y tienen potencial como pasafauna para conectar hábitats fragmentados.",
+        caracteristicas: "Forma lineal. Longitud considerable, atravesando grandes trayectos. Vegetación espontánea nativa. Alcantarillas funcionan como pasafaunas y refugios (dormideros) para varias especies.",
+        beneficiosProduccion: [
+          "Mantenimiento de infraestructura ferroviaria",
+          "Control de erosión en terraplenes",
+          "Protección contra vientos",
+          "Valor paisajístico"
+        ],
+        beneficiosNaturaleza: [
+          "Conectividad a escala regional",
+          "Reservorios de vegetación nativa en paisajes agrícolas",
+          "Pasafaunas en alcantarillas",
+          "Refugio para especies en movimiento"
+        ],
+        video: "vias-ferreas.mp4",
+        image: "vias.jpg"
+      },
+      cortinas: {
+        titulo: "Cortinas forestales",
+        categoria: "Espacio Seminatural | Corredor Lineal",
+        texto: "Alineaciones de árboles que actúan como conectores estructurales y protección frente al viento, con valor ecológico según su diseño y composición.",
+        caracteristicas: "Forma lineal. Ubicación: en una sola hilara o franja, nativas o exóticas. En zonas de bosque nativo pueden aportar a la conectividad para algunas especies, principalmente insectos y aves.",
+        beneficiosProduccion: [
+          "Protección de cultivos contra vientos",
+          "Reducción de la erosión eólica",
+          "Sombra para animales domésticos",
+          "Producción forestal secundaria"
+        ],
+        beneficiosNaturaleza: [
+          "Conectividad estructural en paisajes agrícolas",
+          "Hábitat para aves e insectos",
+          "Corredor para movimiento de especies voladoras",
+          "Refugio temporal para fauna en desplazamiento"
+        ],
+        video: "cortinas.mp4",
+        image: "cortinas.jpg"
+      },
+      cercos: {
+        titulo: "Cercos vivos",
+        categoria: "Espacio Seminatural | Corredor Lineal",
+        texto: "Plantaciones lineales de arbustos o herbáceas que delimitan parcelas y aportan biodiversidad al paisaje agrícola.",
+        caracteristicas: "Forma lineal. Plantaciones de especies herbáceas o arbustivas en líneas, muy cercanas entre sí. Pueden ser nativas (ej. falso guayabo) en zonas con bosque nativo, aportando conectividad para insectos y aves.",
+        beneficiosProduccion: [
+          "Delimitación de parcelas y potreros",
+          "Protección de montes frutales y huertas",
+          "Flora para apicultura",
+          "Producción de frutos para consumo humano o animal"
+        ],
+        beneficiosNaturaleza: [
+          "Conectividad lineal en escala local",
+          "Recursos florales para polinizadores",
+          "Hábitat para insectos benéficos",
+          "Fuente de alimento para aves frugívoras"
+        ],
+        video: "cercos.mp4",
+        image: "cercos.jpg"
+      },
+      "parche-natural": {
+        titulo: "Parche Natural (Refugio)",
+        categoria: "Espacio Natural | Areal",
+        texto: "Área pequeña (<1-5 ha) de vegetación nativa (relicto del ambiente original) que persiste en la matriz productiva, pudiendo coincidir con humedales temporarios.",
+        caracteristicas: "Forma poligonal. Ubicación: parte de un establecimiento donde se mantiene vegetación natural, se restaura o enriquece con plantas nativas. Puede ser sitio con rendimiento limitado por condiciones edáficas.",
+        beneficiosProduccion: [
+          "Conservación de suelos en áreas marginales",
+          "Reserva de flora nativa de interés forrajero o medicinal",
+          "Control natural de plagas",
+          "Protección de fuentes de agua"
+        ],
+        beneficiosNaturaleza: [
+          "Conservación de vegetación nativa relictual",
+          "Hábitat para especies asociadas a ambientes originales",
+          "Nodos de biodiversidad en paisajes agrícolas",
+          "Fuente de semillas para restauración"
+        ],
+        video: "parchenatural.mp4",
+        image: "parche.jpg"
+      },
+      "area-natural": {
+        titulo: "Área Natural",
+        categoria: "Espacio Natural | Areal",
+        texto: "Superficies mayores a 5 hectáreas que conservan el ambiente original de la ecorregión, pudiendo ser delimitadas como áreas protegidas o con manejo especial.",
+        caracteristicas: "Forma poligonal. Combinación de parches de diferentes ambientes y tamaños. Se mantiene vegetación natural, se restaura y/o enriquece con plantas nativas. Ejemplos: lagunas, arroyos, bañados, mogotes, bosques o pastizales originales.",
+        beneficiosProduccion: [
+          "Conservación de recursos hídricos",
+          "Reserva genética de especies nativas útiles",
+          "Posibilidades de ecoturismo y educación ambiental",
+          "Provisión de servicios ecosistémicos clave"
+        ],
+        beneficiosNaturaleza: [
+          "Conservación de biodiversidad a escala de paisaje",
+          "Hábitat para especies con mayores requerimientos",
+          "Núcleos para restauración ecológica",
+          "Mantenimiento de procesos ecológicos a gran escala"
+        ],
+        video: "area-natural.mp4",
+        image: "area.jpg"
+      },
+      riberenos: {
+        titulo: "Bordes ribereños",
+        categoria: "Espacio Natural | Corredor Lineal",
+        texto: "Franjas vegetadas junto a arroyos, ríos o cuerpos de agua que regulan escorrentía, protegen de la erosión y ofrecen hábitat acuático y terrestre.",
+        caracteristicas: "Forma lineal. Ubicación: bordes de cursos o cuerpos de agua (franja ribereña). Vegetación espontánea adaptada a condiciones de humedad. Escala variable según características del curso de agua.",
+        beneficiosProduccion: [
+          "Protección de infraestructura contra erosión",
+          "Mantenimiento de calidad de aguas para uso productivo",
+          "Conservación de pesquerías",
+          "Filtrado de aguas residuales y de escorrentía"
+        ],
+        beneficiosNaturaleza: [
+          "Conservación de ambientes acuáticos y ribereños",
+          "Hábitat para especies asociadas a cuerpos de agua",
+          "Corredores lineales de alta diversidad biológica",
+          "Regulación de ciclos hidrológicos"
+        ],
+        video: "riberenos.mp4",
+        image: "ribereños.jpg"
+      },
+      "bosque-nativo": {
+        titulo: "Franjas de bosque nativo",
+        categoria: "Espacio Natural | Corredor Lineal",
+        texto: "Remanentes lineales de bosque autóctono que mantienen la conectividad del paisaje, especialmente importantes en regions con alta fragmentación.",
+        caracteristicas: "Forma lineal. Largo promedio 1800 m, superficie promedio 8 ha, ancho promedio 100 m. Ubicación: remanentes del cambio de uso del suelo a agricultura, generalmente en bordes de propiedades o cursos de agua.",
+        beneficiosProduccion: [
+          "Protección de cultivos contra vientos",
+          "Conservación de suelos en pendientes",
+          "Producción forestal sostenible",
+          "Posibilidades de turismo educativo"
+        ],
+        beneficiosNaturaleza: [
+          "Conectividad entre fragmentos boscosos",
+          "Hábitat para especies forestales",
+          "Conservación de flora y fauna especializada",
+          "Corredores para especies con baja movilidad"
+        ],
+        video: "bosque-nativo.mp4",
+        image: "bosque.jpg"
+      }
+    };
+
+    let currentTool = 'conservation';
+    let videoPlaying = false;
+    let video = document.getElementById('infographic-video');
+    let activeInfoPanel = null;
+    let hotspotsVisible = false;
+    let structuresVisible = false;
+
+    // FUNCIÓN CORREGIDA: Reposicionar hotspots basándose en el área visible real del video
+    function repositionHotspots() {
+      const video = document.getElementById('infographic-video');
+      if (!video.videoWidth || !video.videoHeight) return;
+
+      const container = video.parentElement;
+      const rect = container.getBoundingClientRect();
+      const videoRatio = video.videoWidth / video.videoHeight;
+      const containerRatio = rect.width / rect.height;
+
+      let displayW, displayH, offsetX, offsetY;
+      if (containerRatio > videoRatio) {
+        // Barras negras a los lados
+        displayH = rect.height;
+        displayW = displayH * videoRatio;
+        offsetX = (rect.width - displayW) / 2;
+        offsetY = 0;
+      } else {
+        // Barras negras arriba/abajo
+        displayW = rect.width;
+        displayH = displayW / videoRatio;
+        offsetX = 0;
+        offsetY = (rect.height - displayH) / 2;
+      }
+
+      document.querySelectorAll('.hotspot').forEach(h => {
+        const id = h.dataset.id;
+        const pos = hotspotPositions[id];
+        if (!pos) return;
+        h.style.left = `${offsetX + pos.x * displayW}px`;
+        h.style.top = `${offsetY + pos.y * displayH}px`;
+      });
+      
+      document.querySelectorAll('.structure').forEach(s => {
+        const id = s.dataset.id;
+        const pos = structurePositions[id];
+        if (!pos) return;
+        s.style.left = `${offsetX + pos.x * displayW}px`;
+        s.style.top = `${offsetY + pos.y * displayH}px`;
+      });
+    }
+
+    function initVideo() {
+      video.volume = 1.0;
+      
+      const soundOverlay = document.getElementById('sound-overlay');
+      
+      if (video.muted) {
+        soundOverlay.classList.remove('hidden');
+      }
+      
+      soundOverlay.addEventListener('click', function() {
+        video.muted = false;
+        soundOverlay.classList.add('hidden');
+        document.getElementById('volume-btn').innerHTML = '<i class="fas fa-volume-up"></i>';
+        document.getElementById('volume-btn').classList.remove('muted');
+      });
+      
+      video.addEventListener('loadedmetadata', function() {
+        hideHotspots();
+        hideStructures();
+        
+        video.play().then(() => {
+          document.addEventListener('click', function firstClick() {
+            if (video.muted) {
+              video.muted = false;
+              soundOverlay.classList.add('hidden');
+              document.getElementById('volume-btn').innerHTML = '<i class="fas fa-volume-up"></i>';
+              document.getElementById('volume-btn').classList.remove('muted');
+            }
+            document.removeEventListener('click', firstClick);
+          });
+        }).catch(e => console.log("Autoplay prevented:", e));
+      });
+
+      video.addEventListener('ended', function() {
+        showHotspots();
+      });
+
+      video.addEventListener('play', function() {
+        videoPlaying = true;
+        document.getElementById('play-pause-btn').innerHTML = '<i class="fas fa-pause"></i> Intro';
+        
+        if (video.currentTime < video.duration - 1) {
+          hideHotspots();
+          hideStructures();
+        }
+      });
+      
+      video.addEventListener('pause', function() {
+        videoPlaying = false;
+        document.getElementById('play-pause-btn').innerHTML = '<i class="fas fa-play"></i> Intro';
+      });
+      
+      video.addEventListener('seeked', function() {
+        if (video.currentTime < video.duration - 1) {
+          hideHotspots();
+          hideStructures();
+        } else {
+          if (hotspotsVisible) showHotspots();
+          if (structuresVisible) showStructures();
+        }
+      });
+    }
+
+    function showHotspots() {
+      document.querySelectorAll('.hotspot').forEach(hotspot => {
+        hotspot.style.display = 'flex';
+      });
+      hotspotsVisible = true;
+      // Recalcular posición cuando se muestran
+      repositionHotspots();
+    }
+
+    function hideHotspots() {
+      document.querySelectorAll('.hotspot').forEach(hotspot => {
+        hotspot.style.display = 'none';
+      });
+      hotspotsVisible = false;
+    }
+
+    function toggleHotspots() {
+      if (hotspotsVisible) {
+        hideHotspots();
+      } else {
+        showHotspots();
+        hideStructures();
+        structuresVisible = false;
+        document.getElementById('structures-tool').classList.remove('active');
+      }
+    }
+
+    function showStructures() {
+      document.querySelectorAll('.structure').forEach(structure => {
+        structure.style.display = 'flex';
+      });
+      structuresVisible = true;
+      // Recalcular posición cuando se muestran
+      repositionHotspots();
+    }
+
+    function hideStructures() {
+      document.querySelectorAll('.structure').forEach(structure => {
+        structure.style.display = 'none';
+      });
+      structuresVisible = false;
+    }
+
+    function toggleStructures() {
+      if (structuresVisible) {
+        hideStructures();
+      } else {
+        showStructures();
+        hideHotspots();
+        hotspotsVisible = false;
+        document.getElementById('conservation-tool').classList.remove('active');
+      }
+    }
+
+    function showSpaceInfo(spaceId) {
+      const data = dataMap[spaceId];
+      if (!data) return;
+      
+      const panel = document.getElementById('info-panel');
+      
+      document.getElementById('panel-title').textContent = data.titulo;
+      document.getElementById('panel-category').textContent = data.categoria;
+      document.getElementById('panel-text').textContent = data.texto;
+      document.getElementById('panel-characteristics').textContent = data.caracteristicas;
+      
+      document.getElementById('panel-benefits-production').innerHTML = '';
+      document.getElementById('panel-benefits-nature').innerHTML = '';
+      
+      data.beneficiosProduccion.forEach(item => {
+        const li = document.createElement('li');
+        li.textContent = item;
+        document.getElementById('panel-benefits-production').appendChild(li);
+      });
+      
+      data.beneficiosNaturaleza.forEach(item => {
+        const li = document.createElement('li');
+        li.textContent = item;
+        document.getElementById('panel-benefits-nature').appendChild(li);
+      });
+      
+      const panelMedia = document.getElementById('panel-media');
+      panelMedia.innerHTML = '';
+      
+      if (data.video) {
+        const video = document.createElement('video');
+        video.id = 'panel-video';
+        video.src = data.video;
+        video.controls = true;
+        video.muted = true;
+        video.loop = true;
+        video.preload = "none"; // Mejorar rendimiento de video
+        video.style.width = '100%';
+        panelMedia.appendChild(video);
+        
+        // Cargar video solo cuando sea necesario
+        video.addEventListener('loadstart', function() {
+          video.play().catch(e => console.log("Video autoplay prevented:", e));
+        });
+      } else if (data.image) {
+        const img = document.createElement('img');
+        img.src = data.image;
+        img.alt = data.titulo;
+        img.style.width = '100%';
+        img.style.objectFit = 'cover';
+        panelMedia.appendChild(img);
+      }
+      
+      // Posicionar el panel centrado
+      const containerRect = document.querySelector('.infographic-container').getBoundingClientRect();
+      const panelWidth = 400;
+      const panelHeight = Math.min(600, containerRect.height - 40);
+      
+      const left = (containerRect.width - panelWidth) / 2;
+      const top = Math.max(20, (containerRect.height - panelHeight) / 3);
+      
+      panel.style.left = `${left}px`;
+      panel.style.top = `${top}px`;
+      panel.style.width = `${panelWidth}px`;
+      panel.style.maxHeight = `${panelHeight}px`;
+      
+      panel.classList.add('active');
+      activeInfoPanel = spaceId;
+    }
+
+    function showStructureInfo(structureId) {
+      const data = structureData[structureId];
+      if (!data) return;
+      
+      const panel = document.getElementById('info-panel');
+      
+      document.getElementById('panel-title').textContent = data.titulo;
+      document.getElementById('panel-category').textContent = "Estructura Clave";
+      document.getElementById('panel-text').textContent = data.descripcion;
+      document.getElementById('panel-characteristics').textContent = "Estructuras que proveen recursos, refugios o servicios cruciales a pequeña escala para la biodiversidad.";
+      
+      document.getElementById('panel-benefits-production').innerHTML = '';
+      document.getElementById('panel-benefits-nature').innerHTML = '';
+      
+      // Beneficios generales para estructuras clave
+      const beneficiosProduccion = [
+        "Provisión de sitios de nidificación para aves benéficas",
+        "Control natural de plagas",
+        "Posaderos para aves rapaces que controlan roedores"
+      ];
+      
+      const beneficiosNaturaleza = [
+        "Hábitat para insectos, hongos y pequeños vertebrados",
+        "Sitios de reproducción para diversas especies",
+        "Refugio temporal para fauna en movimiento"
+      ];
+      
+      beneficiosProduccion.forEach(item => {
+        const li = document.createElement('li');
+        li.textContent = item;
+        document.getElementById('panel-benefits-production').appendChild(li);
+      });
+      
+      beneficiosNaturaleza.forEach(item => {
+        const li = document.createElement('li');
+        li.textContent = item;
+        document.getElementById('panel-benefits-nature').appendChild(li);
+      });
+      
+      const panelMedia = document.getElementById('panel-media');
+      panelMedia.innerHTML = '';
+      
+      // Posicionar el panel centrado
+      const containerRect = document.querySelector('.infographic-container').getBoundingClientRect();
+      const panelWidth = 400;
+      const panelHeight = Math.min(500, containerRect.height - 40);
+      
+      const left = (containerRect.width - panelWidth) / 2;
+      const top = Math.max(20, (containerRect.height - panelHeight) / 3);
+      
+      panel.style.left = `${left}px`;
+      panel.style.top = `${top}px`;
+      panel.style.width = `${panelWidth}px`;
+      panel.style.maxHeight = `${panelHeight}px`;
+      
+      panel.classList.add('active');
+      activeInfoPanel = structureId;
+    }
+
+    function hideSpaceInfo() {
+      document.getElementById('info-panel').classList.remove('active');
+      const panelVideo = document.getElementById('panel-video');
+      if (panelVideo) panelVideo.pause();
+      activeInfoPanel = null;
+    }
+
+    function toggleVolume() {
+      const volumeBtn = document.getElementById('volume-btn');
+      if (video.muted) {
+        video.muted = false;
+        volumeBtn.innerHTML = '<i class="fas fa-volume-up"></i>';
+        volumeBtn.classList.remove('muted');
+        document.getElementById('sound-overlay').classList.add('hidden');
+      } else {
+        video.muted = true;
+        volumeBtn.innerHTML = '<i class="fas fa-volume-mute"></i>';
+        volumeBtn.classList.add('muted');
+      }
+    }
+
+    function showSteps() {
+      document.getElementById('steps-overlay').classList.add('active');
+    }
+
+    function hideSteps() {
+      document.getElementById('steps-overlay').classList.remove('active');
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      initVideo();
+      
+      // POSICIONAR HOTSPOTS INICIALMENTE
+      repositionHotspots();
+      
+      document.getElementById('play-pause-btn').addEventListener('click', function() {
+        if (videoPlaying) {
+          video.pause();
+        } else {
+          video.play();
+        }
+      });
+      
+      document.getElementById('volume-btn').addEventListener('click', toggleVolume);
+      
+      document.getElementById('skip-to-end-btn').addEventListener('click', function() {
+        video.currentTime = video.duration - 0.1;
+        video.pause();
+        showHotspots();
+        hotspotsVisible = true;
+        document.getElementById('conservation-tool').classList.add('active');
+      });
+      
+      document.getElementById('conservation-tool').addEventListener('click', function() {
+        toggleHotspots();
+        this.classList.toggle('active');
+      });
+      
+      document.getElementById('structures-tool').addEventListener('click', function() {
+        toggleStructures();
+        this.classList.toggle('active');
+      });
+      
+      document.getElementById('steps-tool').addEventListener('click', function() {
+        showSteps();
+        this.classList.toggle('active');
+      });
+      
+      document.querySelectorAll('.hotspot').forEach(hotspot => {
+        hotspot.addEventListener('click', function(e) {
+          e.stopPropagation();
+          const spaceId = this.dataset.id;
+          showSpaceInfo(spaceId);
+        });
+      });
+      
+      document.querySelectorAll('.structure').forEach(structure => {
+        structure.addEventListener('click', function(e) {
+          e.stopPropagation();
+          const structureId = this.dataset.id;
+          showStructureInfo(structureId);
+        });
+      });
+      
+      document.getElementById('close-panel').addEventListener('click', hideSpaceInfo);
+      
+      document.getElementById('close-steps').addEventListener('click', function() {
+        hideSteps();
+        document.getElementById('steps-tool').classList.remove('active');
+      });
+      
+      // Cerrar pasos al hacer clic fuera de la imagen
+      document.getElementById('steps-overlay').addEventListener('click', function(e) {
+        if (e.target === this) {
+          hideSteps();
+          document.getElementById('steps-tool').classList.remove('active');
+        }
+      });
+      
+      // REPOSICIONAR HOTSPOTS CUANDO CAMBIA EL TAMAÑO DE LA VENTANA
+      window.addEventListener('resize', repositionHotspots);
+      
+      // También reposicionar cuando se carga completamente la página
+      window.addEventListener('load', repositionHotspots);
+      
+      // Reposicionar cuando se cargan los metadatos del video
+      video.addEventListener('loadedmetadata', repositionHotspots);
+    });
+  </script>
+</body>
+</html>
