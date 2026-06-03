@@ -1,2 +1,0 @@
-app-v3 final cache-buster 2026-05-20 18:15
-Cambios esperados: casilleros GPS por ficha, multiple marcacion GPS, pin clasico, identidad INTA, visor de infografia preparado para poster-9.jpg.
