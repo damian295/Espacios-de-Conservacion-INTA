@@ -2,67 +2,8 @@
 <html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Espacios de Conservación | Plataforma interactiva INTA</title><style>body{margin:0;font-family:system-ui,Arial,sans-serif;background:#eef9ff;color:#063f69;display:grid;min-height:100dvh;place-items:center}.box{padding:24px;text-align:center}.spin{width:42px;height:42px;border:5px solid #b9dced;border-top-color:#0b8fca;border-radius:50%;animation:s 1s linear infinite;margin:0 auto 14px}@keyframes s{to{transform:rotate(360deg)}}</style></head><body><div class="box"><div class="spin"></div><b>Cargando plataforma…</b></div><script>
 (async()=>{
   const base='https://raw.githubusercontent.com/damian295/Espacios-de-Conservacion-INTA/a5eb58d44ea271114cc030a238a25bc609ba1529/index.html';
-  const css=`<style id="mobile-fix-final">
-@media (max-width:900px),(hover:none) and (pointer:coarse){
-  body.field-mode{font-size:22px!important;background:linear-gradient(180deg,#edf9ff,#f7fff4)!important;overflow-x:hidden!important;-webkit-text-size-adjust:130%!important;text-size-adjust:130%!important}
-  body.field-mode .wrap,body.field-mode .hero .wrap,body.field-mode .interactive-section .wrap,body.field-mode .sections .wrap{width:100%!important;max-width:100%!important;margin:0!important;padding-left:12px!important;padding-right:12px!important}
-  body.field-mode .interactive-layout{display:block!important;width:100%!important;max-width:100%!important}
-  body.field-mode .map-card{width:100%!important;margin:0!important;border-radius:20px!important;border-width:1px!important;min-height:0!important}
-  body.field-mode .map-media{aspect-ratio:16/10.4!important;border-radius:18px!important}
-  body.field-mode .map-media video,body.field-mode .map-media .still{border-radius:17px!important}
-  body.field-mode .map-controls{font-size:20px!important;padding:10px!important;max-width:calc(100% - 18px)!important;left:9px!important;top:9px!important}
-  body.field-mode .map-controls h2{font-size:23px!important;line-height:1.12!important}
-  body.field-mode .map-controls p{font-size:21px!important;line-height:1.42!important}
-  body.field-mode .btn,body.field-mode .filter,body.field-mode .mode-option,body.field-mode .mini-card{font-size:22px!important;line-height:1.25!important}
-  body.field-mode .side-column{width:100%!important;display:block!important;margin-top:12px!important}
-  body.field-mode .legend-card{width:100%!important;max-width:none!important;margin:12px 0!important;padding:16px!important;border-radius:20px!important;display:block!important;background:rgba(255,255,255,.96)!important;border:2px solid #b4dced!important}
-  body.field-mode .legend-card h3{font-size:30px!important;margin:0 0 14px!important;line-height:1.1!important}
-  body.field-mode .legend-item{display:grid!important;grid-template-columns:54px minmax(0,1fr)!important;gap:12px!important;margin:0 0 16px!important;align-items:start!important}
-  body.field-mode .legend-symbol{width:50px!important;height:50px!important;font-size:20px!important}
-  body.field-mode .legend-item b{font-size:23px!important;line-height:1.15!important}
-  body.field-mode .legend-item p{font-size:22px!important;line-height:1.48!important;margin-top:3px!important}
-  body.field-mode .legend-more{font-size:22px!important}
-  body.field-mode .field-guide{width:100%!important;margin:12px 0 0!important;padding:16px!important;border-radius:20px!important}
-  body.field-mode .field-guide h2{font-size:34px!important;line-height:1.08!important}
-  body.field-mode .section-intro,body.field-mode .video-hint,body.field-mode .quick-selection-note{font-size:23px!important;line-height:1.52!important;font-weight:780!important}
-  body.field-mode .quick-grid{display:grid!important;grid-template-columns:1fr!important;gap:12px!important}
-  body.field-mode .quick-card{width:100%!important;min-height:92px!important;padding:15px!important;border-radius:20px!important}
-  body.field-mode .quick-card img{width:62px!important;height:62px!important;flex-basis:62px!important}
-  body.field-mode .quick-card b{font-size:26px!important;line-height:1.18!important}
-  body.field-mode .space-grid{grid-template-columns:1fr!important;gap:16px!important}
-  body.field-mode .space-card{width:100%!important;border-radius:20px!important}
-  body.field-mode .space-body{padding:20px!important}
-  body.field-mode .space-card h3{font-size:32px!important;line-height:1.12!important}
-  body.field-mode .space-card p{font-size:24px!important;line-height:1.52!important}
-  body.field-mode .tag{font-size:20px!important;padding:10px 13px!important}
-  body.field-mode .space-video{aspect-ratio:16/9.8!important}
-  body.field-mode .section-head h2{font-size:34px!important;line-height:1.08!important}
-  body.field-mode .kicker{font-size:20px!important}
-  body.field-mode .drawer{position:fixed!important;inset:0!important;left:0!important;right:0!important;width:100vw!important;max-width:100vw!important;max-height:100dvh!important;border-radius:0!important;padding:10px 12px calc(18px + var(--safe))!important;overflow:auto!important;transform:translateY(105%)!important}
-  body.field-mode .drawer.open{transform:translateY(0)!important;display:block!important;background:linear-gradient(180deg,#fff,#effaff 55%,#f6fbf0)!important}
-  body.field-mode .drawer-top{position:sticky!important;top:0!important;z-index:9!important;margin:0 0 12px!important;border-radius:18px!important;padding:12px!important;background:linear-gradient(135deg,rgba(6,63,105,.96),rgba(11,143,202,.86))!important;color:#fff!important}
-  body.field-mode .drawer-top h3{font-size:38px!important;color:#fff!important;line-height:1.05!important}
-  body.field-mode .drawer-type{font-size:22px!important;color:#eaf8ff!important}
-  body.field-mode .close-x{width:68px!important;height:68px!important;min-width:68px!important;border-radius:50%!important;background:#063f69!important;color:white!important;font-size:42px!important;display:grid!important;place-items:center!important}
-  body.field-mode .drawer-media{width:100%!important;max-width:100%!important;margin:0 0 12px!important;border-radius:18px!important}
-  body.field-mode .drawer-media video,body.field-mode .drawer-media .placeholder{max-height:34dvh!important;object-fit:cover!important}
-  body.field-mode .summary{font-size:26px!important;line-height:1.55!important;margin:0 0 14px!important;border-left:8px solid #f58220!important}
-  body.field-mode .drawer-context,body.field-mode .info-blocks,body.field-mode .aportes-split{grid-template-columns:1fr!important;width:100%!important;max-width:100%!important;margin:12px 0!important}
-  body.field-mode .drawer-extra article{grid-template-columns:60px 1fr!important;padding:15px!important}
-  body.field-mode .drawer-extra article b{font-size:24px!important;line-height:1.18!important}
-  body.field-mode .drawer-extra article p{font-size:24px!important;line-height:1.52!important}
-  body.field-mode .info-block h4{font-size:24px!important;line-height:1.2!important}
-  body.field-mode .info-block p,body.field-mode .aporte-card p{font-size:25px!important;line-height:1.56!important}
-  body.field-mode .aporte-card h4{font-size:24px!important;line-height:1.2!important}
-  body.field-mode .back-map{font-size:23px!important;padding:16px!important}
-  body.field-mode .point{font-size:13px!important;width:28px!important;height:28px!important}
-  body.field-mode .point b{font-size:16px!important;line-height:1.15!important;max-width:230px!important;white-space:normal!important}
-  body.field-mode .bottom-nav button{font-size:18px!important}
-}
-@media (max-width:760px){.wrap{width:100%!important;max-width:100%!important;padding-left:12px!important;padding-right:12px!important}}
-.modal-content.fit img{max-width:96vw!important;max-height:calc(100dvh - 156px)!important;width:auto!important;height:auto!important;object-fit:contain!important;border-radius:0!important}.modal-content.fit.zoomed{display:block!important;place-items:unset!important;overflow:auto!important}.modal-content.fit.zoomed img{max-width:none!important;max-height:none!important;width:180vw!important;height:auto!important}
-</style>`;
-  const js='<scr'+'ipt id="mobile-fix-final-script">'+`(function(){
+  const isMobile=()=>window.matchMedia('(max-width:900px)').matches||((navigator.maxTouchPoints||0)>0&&window.innerWidth<=1024)||/Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent||'');
+  const patchScript='<scr'+'ipt id="campo-original-patch">'+`(function(){
  const qs=s=>document.querySelector(s),qsa=s=>Array.from(document.querySelectorAll(s));
  const lectura={
   'Bordes de cultivo o alambrado':'Buscá una franja continua con cobertura vegetal en el límite del lote o alambrado. Si no está totalmente limpia y conecta sectores, puede funcionar como corredor.',
@@ -79,19 +20,21 @@
   'Área natural':'Mirala como un sector de manejo especial: pastizal, bajo, bañado, bosque o laguna. Requiere reglas claras de uso y monitoreo.',
   'Estructura clave':'Detectá el recurso puntual: poste, árbol muerto, tronco, molino, cavidad u hotel de insectos. Su valor depende de ofrecer refugio, posadero o cría.'
  };
- function isMob(){return window.matchMedia('(max-width:900px)').matches||((navigator.maxTouchPoints||0)>0&&window.innerWidth<=1024)||/Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent||'')}
- function apply(){if(!isMob())return;document.body.classList.add('field-mode');qs('#modeBtn')?.classList.add('active');qs('#modeNormalBtn')?.classList.remove('active')}
- function stop(){qsa('#drawer video,#drawer audio').forEach(v=>{try{v.pause();v.currentTime=0;v.muted=true}catch(e){}})}
- function patchLectura(){const t=(qs('#drawerTitle')?.textContent||'').trim();const txt=lectura[t];if(!txt)return;const boxes=qsa('.drawer-context article');for(const a of boxes){const b=(a.querySelector('b')?.textContent||'').trim();if(b==='Lectura rápida'){const p=a.querySelector('p');if(p&&p.textContent!==txt)p.textContent=txt;}}}
- function zoom(v){const z=qs('#zoomRange'),img=qs('#modalImage'),box=qs('.modal-content');if(!z||!img||!box)return;v=Math.max(0,Math.min(100,Number(v)||0));z.min=0;z.max=100;z.value=v;box.classList.add('fit');if(v===0){box.classList.remove('zoomed');img.style.width='auto';img.style.maxWidth='96vw';img.style.maxHeight='calc(100dvh - 156px)';img.style.height='auto'}else{box.classList.add('zoomed');img.style.width=(100+v*1.35)+'vw';img.style.maxWidth='none';img.style.maxHeight='none';img.style.height='auto'}}
- function init(){apply();const z=qs('#zoomRange');if(z){z.addEventListener('input',e=>{e.stopImmediatePropagation();zoom(z.value)},true);qs('#zoomOut')?.addEventListener('click',e=>{e.preventDefault();e.stopImmediatePropagation();zoom((+z.value||0)-10)},true);qs('#zoomIn')?.addEventListener('click',e=>{e.preventDefault();e.stopImmediatePropagation();zoom((+z.value||0)+10)},true);qs('#zoomFit')?.addEventListener('click',e=>{e.preventDefault();e.stopImmediatePropagation();zoom(0)},true);qs('#modalImage')?.addEventListener('click',()=>setTimeout(()=>zoom((+z.value||0)>0?0:60),0),true);zoom(0)}['#closeDrawer','#backToMap'].forEach(sel=>qs(sel)?.addEventListener('click',stop,true));document.addEventListener('keydown',e=>{if(e.key==='Escape')stop()},true);document.addEventListener('click',()=>setTimeout(patchLectura,80),true);const d=qs('#drawer');if(d)new MutationObserver(patchLectura).observe(d,{childList:true,subtree:true,characterData:true});setTimeout(patchLectura,300)}
- document.addEventListener('DOMContentLoaded',init);window.addEventListener('resize',()=>{if(isMob())apply()});window.addEventListener('orientationchange',()=>setTimeout(apply,250));
+ function mob(){return matchMedia('(max-width:900px)').matches||((navigator.maxTouchPoints||0)>0&&innerWidth<=1024)||/Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent||'')}
+ function forceCampo(){if(!mob())return;document.body.classList.add('field-mode');qs('#modeBtn')?.classList.add('active');qs('#modeNormalBtn')?.classList.remove('active')}
+ function stopMedia(){qsa('#drawer video,#drawer audio').forEach(v=>{try{v.pause();v.currentTime=0;v.muted=true}catch(e){}})}
+ function patchLectura(){const t=(qs('#drawerTitle')?.textContent||'').trim();const txt=lectura[t];if(!txt)return;qsa('.drawer-context article').forEach(a=>{const b=(a.querySelector('b')?.textContent||'').trim();if(b==='Lectura rápida'){const p=a.querySelector('p');if(p)p.textContent=txt;}})}
+ function patchZoom(v){const z=qs('#zoomRange'),img=qs('#modalImage'),box=qs('.modal-content');if(!z||!img||!box)return;v=Math.max(0,Math.min(100,Number(v)||0));z.min=0;z.max=100;z.value=v;box.classList.add('fit');if(v===0){box.classList.remove('zoomed');img.style.width='auto';img.style.maxWidth='96vw';img.style.maxHeight='calc(100dvh - 156px)';img.style.height='auto'}else{box.classList.add('zoomed');img.style.width=(100+v*1.35)+'vw';img.style.maxWidth='none';img.style.maxHeight='none';img.style.height='auto'}}
+ function init(){forceCampo();const z=qs('#zoomRange');if(z){z.addEventListener('input',e=>{e.stopImmediatePropagation();patchZoom(z.value)},true);qs('#zoomOut')?.addEventListener('click',e=>{e.preventDefault();e.stopImmediatePropagation();patchZoom((+z.value||0)-10)},true);qs('#zoomIn')?.addEventListener('click',e=>{e.preventDefault();e.stopImmediatePropagation();patchZoom((+z.value||0)+10)},true);qs('#zoomFit')?.addEventListener('click',e=>{e.preventDefault();e.stopImmediatePropagation();patchZoom(0)},true);qs('#modalImage')?.addEventListener('click',()=>setTimeout(()=>patchZoom((+z.value||0)>0?0:60),0),true);patchZoom(0)}['#closeDrawer','#backToMap'].forEach(sel=>qs(sel)?.addEventListener('click',stopMedia,true));document.addEventListener('click',()=>setTimeout(patchLectura,80),true);document.addEventListener('keydown',e=>{if(e.key==='Escape')stopMedia()},true);const d=qs('#drawer');if(d)new MutationObserver(patchLectura).observe(d,{childList:true,subtree:true,characterData:true});setTimeout(()=>{forceCampo();patchLectura()},250)}
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
+ addEventListener('resize',forceCampo);addEventListener('orientationchange',()=>setTimeout(forceCampo,250));
 })();`+'</scr'+'ipt>';
   try{
     const r=await fetch(base+'?v='+Date.now(),{cache:'no-store'});
     if(!r.ok) throw new Error('No se pudo cargar base');
     let html=await r.text();
-    html=html.replace('</head>',css+'</head>').replace('</body>',js+'</body>');
+    if(isMobile()) html=html.replace('<body>','<body class="field-mode">');
+    html=html.replace('</body>',patchScript+'</body>');
     document.open();document.write(html);document.close();
   }catch(e){document.body.innerHTML='<div class="box"><b>No se pudo cargar la plataforma.</b><p>Probá actualizar o abrir en Chrome.</p></div>';console.error(e)}
 })();
