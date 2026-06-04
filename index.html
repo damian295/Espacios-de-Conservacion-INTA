@@ -3,6 +3,74 @@
 (async()=>{
   const base='https://raw.githubusercontent.com/damian295/Espacios-de-Conservacion-INTA/a5eb58d44ea271114cc030a238a25bc609ba1529/index.html';
   const isMobile=()=>window.matchMedia('(max-width:900px)').matches||((navigator.maxTouchPoints||0)>0&&window.innerWidth<=1024)||/Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent||'');
+  const campoCss=`<style id="campo-fullwidth-legible-final">
+@media (max-width:900px),(hover:none) and (pointer:coarse){
+  html,body{width:100%!important;max-width:100%!important;overflow-x:hidden!important;}
+  body.field-mode{font-size:20px!important;-webkit-text-size-adjust:120%!important;text-size-adjust:120%!important;}
+  body.field-mode .wrap,
+  body.field-mode .hero .wrap,
+  body.field-mode .interactive-section .wrap,
+  body.field-mode .sections .wrap,
+  body.field-mode .footer .wrap{
+    width:100%!important;max-width:100%!important;margin-left:0!important;margin-right:0!important;padding-left:10px!important;padding-right:10px!important;
+  }
+  body.field-mode .hero{padding:16px 0 10px!important;}
+  body.field-mode .hero-copy h1{font-size:2.55rem!important;line-height:1!important;letter-spacing:-.045em!important;}
+  body.field-mode .hero-copy .intro{font-size:1.2rem!important;line-height:1.45!important;font-weight:650!important;}
+  body.field-mode .brand-wall--balanced{width:100%!important;max-width:100%!important;margin-top:12px!important;}
+  body.field-mode .mode-switch{width:100%!important;max-width:100%!important;}
+  body.field-mode .mode-option{font-size:1.14rem!important;line-height:1.2!important;padding:13px 8px!important;}
+  body.field-mode .interactive-layout{display:block!important;width:100%!important;max-width:100%!important;}
+  body.field-mode .map-section-head{display:block!important;width:100%!important;}
+  body.field-mode .map-section-head h2{font-size:2rem!important;line-height:1.08!important;}
+  body.field-mode .map-section-head p,body.field-mode .video-hint{font-size:1.18rem!important;line-height:1.45!important;}
+  body.field-mode .map-card{width:100%!important;max-width:100%!important;margin-left:0!important;margin-right:0!important;border-radius:18px!important;}
+  body.field-mode .map-media{width:100%!important;aspect-ratio:16/10.8!important;border-radius:16px!important;}
+  body.field-mode .map-media video,body.field-mode .map-media .still{border-radius:15px!important;}
+  body.field-mode .map-controls--compact{right:7px!important;top:7px!important;max-width:74%!important;}
+  body.field-mode .map-controls--compact .btn{font-size:.72rem!important;padding:6px 7px!important;}
+  body.field-mode .legend-card,body.field-mode .field-guide{width:100%!important;max-width:100%!important;margin:12px 0 0!important;padding:16px!important;border-radius:20px!important;}
+  body.field-mode .legend-card h3{font-size:1.65rem!important;line-height:1.1!important;}
+  body.field-mode .legend-item{grid-template-columns:52px minmax(0,1fr)!important;gap:12px!important;margin-bottom:15px!important;}
+  body.field-mode .legend-symbol{width:50px!important;height:50px!important;font-size:1.15rem!important;}
+  body.field-mode .legend-item b{font-size:1.18rem!important;line-height:1.18!important;}
+  body.field-mode .legend-item p{font-size:1.1rem!important;line-height:1.45!important;font-weight:650!important;}
+  body.field-mode .field-guide h2{font-size:1.9rem!important;line-height:1.08!important;}
+  body.field-mode .section-intro{font-size:1.18rem!important;line-height:1.48!important;}
+  body.field-mode .quick-grid{grid-template-columns:1fr!important;gap:12px!important;width:100%!important;}
+  body.field-mode .quick-card{width:100%!important;min-height:88px!important;padding:14px!important;border-radius:20px!important;}
+  body.field-mode .quick-card img{width:64px!important;height:64px!important;flex-basis:64px!important;}
+  body.field-mode .quick-card b{font-size:1.28rem!important;line-height:1.22!important;}
+  body.field-mode .mini-nav--actions{grid-template-columns:1fr!important;width:100%!important;}
+  body.field-mode .mini-card{width:100%!important;font-size:1.12rem!important;}
+  body.field-mode .mini-card b{font-size:1.18rem!important;}
+  body.field-mode .mini-card p{font-size:1.08rem!important;line-height:1.4!important;}
+  body.field-mode .filters{width:100%!important;gap:10px!important;}
+  body.field-mode .filter{font-size:1.15rem!important;padding:12px 16px!important;}
+  body.field-mode .space-grid{grid-template-columns:1fr!important;width:100%!important;max-width:100%!important;gap:16px!important;}
+  body.field-mode .space-card{width:100%!important;max-width:100%!important;border-radius:20px!important;}
+  body.field-mode .space-body{padding:18px!important;}
+  body.field-mode .space-card h3{font-size:1.75rem!important;line-height:1.12!important;}
+  body.field-mode .space-card p{font-size:1.22rem!important;line-height:1.52!important;}
+  body.field-mode .tag{font-size:1.05rem!important;padding:9px 12px!important;}
+  body.field-mode .drawer{width:100vw!important;max-width:100vw!important;left:0!important;right:0!important;margin:0!important;border-radius:0!important;padding:10px 12px calc(18px + var(--safe))!important;}
+  body.field-mode .drawer-top{position:sticky!important;top:0!important;z-index:10!important;border-radius:18px!important;background:linear-gradient(135deg,rgba(6,63,105,.96),rgba(11,143,202,.86))!important;color:#fff!important;padding:12px!important;}
+  body.field-mode .drawer h3{font-size:2.05rem!important;line-height:1.05!important;color:#fff!important;}
+  body.field-mode .drawer-type{font-size:1.15rem!important;color:#eaf8ff!important;}
+  body.field-mode .close-x{width:64px!important;height:64px!important;min-width:64px!important;font-size:2.3rem!important;background:#063f69!important;color:white!important;}
+  body.field-mode .summary{font-size:1.28rem!important;line-height:1.55!important;text-align:left!important;}
+  body.field-mode .drawer-extra{grid-template-columns:1fr!important;width:100%!important;}
+  body.field-mode .drawer-extra article{grid-template-columns:62px minmax(0,1fr)!important;padding:14px!important;}
+  body.field-mode .drawer-extra img{width:62px!important;height:62px!important;}
+  body.field-mode .drawer-extra b{font-size:1.22rem!important;}
+  body.field-mode .drawer-extra p{font-size:1.18rem!important;line-height:1.5!important;}
+  body.field-mode .info-blocks,body.field-mode .aportes-split{grid-template-columns:1fr!important;width:100%!important;max-width:100%!important;}
+  body.field-mode .info-block h4,body.field-mode .aporte-card h4{font-size:1.2rem!important;}
+  body.field-mode .info-block p,body.field-mode .aporte-card p{font-size:1.2rem!important;line-height:1.52!important;}
+  body.field-mode .back-map{font-size:1.12rem!important;padding:15px!important;}
+  body.field-mode .bottom-nav button{font-size:1rem!important;}
+}
+</style>`;
   const patchScript='<scr'+'ipt id="campo-original-patch">'+`(function(){
  const qs=s=>document.querySelector(s),qsa=s=>Array.from(document.querySelectorAll(s));
  const lectura={
@@ -34,7 +102,7 @@
     if(!r.ok) throw new Error('No se pudo cargar base');
     let html=await r.text();
     if(isMobile()) html=html.replace('<body>','<body class="field-mode">');
-    html=html.replace('</body>',patchScript+'</body>');
+    html=html.replace('</head>',campoCss+'</head>').replace('</body>',patchScript+'</body>');
     document.open();document.write(html);document.close();
   }catch(e){document.body.innerHTML='<div class="box"><b>No se pudo cargar la plataforma.</b><p>Probá actualizar o abrir en Chrome.</p></div>';console.error(e)}
 })();
