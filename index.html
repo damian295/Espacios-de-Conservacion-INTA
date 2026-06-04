@@ -4,50 +4,84 @@
   const base='https://raw.githubusercontent.com/damian295/Espacios-de-Conservacion-INTA/a5eb58d44ea271114cc030a238a25bc609ba1529/index.html';
   const css=`<style id="mobile-fix-final">
 @media (max-width:900px),(hover:none) and (pointer:coarse){
-  body.field-mode{font-size:17px!important;background:linear-gradient(180deg,#edf9ff,#f7fff4)!important;overflow-x:hidden!important}
+  body.field-mode{font-size:19px!important;background:linear-gradient(180deg,#edf9ff,#f7fff4)!important;overflow-x:hidden!important;-webkit-text-size-adjust:115%!important;text-size-adjust:115%!important}
   body.field-mode .wrap,body.field-mode .hero .wrap,body.field-mode .interactive-section .wrap,body.field-mode .sections .wrap{width:100%!important;max-width:100%!important;margin:0!important;padding-left:12px!important;padding-right:12px!important}
   body.field-mode .interactive-layout{display:block!important;width:100%!important;max-width:100%!important}
   body.field-mode .map-card{width:100%!important;margin:0!important;border-radius:20px!important;border-width:1px!important;min-height:0!important}
   body.field-mode .map-media{aspect-ratio:16/10.4!important;border-radius:18px!important}
   body.field-mode .map-media video,body.field-mode .map-media .still{border-radius:17px!important}
+  body.field-mode .map-controls{font-size:1rem!important;padding:10px!important;max-width:calc(100% - 18px)!important;left:9px!important;top:9px!important}
+  body.field-mode .map-controls h2{font-size:1.12rem!important}
+  body.field-mode .map-controls p{font-size:1rem!important;line-height:1.35!important}
+  body.field-mode .btn,body.field-mode .filter,body.field-mode .mode-option{font-size:1.08rem!important;line-height:1.2!important}
   body.field-mode .side-column{width:100%!important;display:block!important;margin-top:12px!important}
-  body.field-mode .legend-card{width:100%!important;max-width:none!important;margin:12px 0!important;padding:15px!important;border-radius:20px!important;display:block!important;background:rgba(255,255,255,.96)!important;border:2px solid #b4dced!important}
-  body.field-mode .legend-card h3{font-size:1.28rem!important;margin:0 0 12px!important}
-  body.field-mode .legend-item{display:grid!important;grid-template-columns:44px minmax(0,1fr)!important;gap:10px!important;margin:0 0 12px!important;align-items:start!important}
-  body.field-mode .legend-symbol{width:42px!important;height:42px!important;font-size:1rem!important}
-  body.field-mode .legend-item p{font-size:.9rem!important;line-height:1.26!important;margin-top:2px!important}
-  body.field-mode .field-guide{width:100%!important;margin:12px 0 0!important;padding:15px!important;border-radius:20px!important}
-  body.field-mode .field-guide h2{font-size:1.45rem!important}
-  body.field-mode .quick-grid{display:grid!important;grid-template-columns:1fr!important;gap:10px!important}
-  body.field-mode .quick-card{width:100%!important;min-height:76px!important;padding:11px 12px!important;border-radius:19px!important}
-  body.field-mode .quick-card img{width:54px!important;height:54px!important;flex-basis:54px!important}
-  body.field-mode .quick-card b{font-size:1.04rem!important;line-height:1.14!important}
-  body.field-mode .space-grid{grid-template-columns:1fr!important;gap:14px!important}
+  body.field-mode .legend-card{width:100%!important;max-width:none!important;margin:12px 0!important;padding:16px!important;border-radius:20px!important;display:block!important;background:rgba(255,255,255,.96)!important;border:2px solid #b4dced!important}
+  body.field-mode .legend-card h3{font-size:1.45rem!important;margin:0 0 14px!important;line-height:1.1!important}
+  body.field-mode .legend-item{display:grid!important;grid-template-columns:48px minmax(0,1fr)!important;gap:12px!important;margin:0 0 14px!important;align-items:start!important}
+  body.field-mode .legend-symbol{width:46px!important;height:46px!important;font-size:1.08rem!important}
+  body.field-mode .legend-item b{font-size:1.08rem!important;line-height:1.15!important}
+  body.field-mode .legend-item p{font-size:1.04rem!important;line-height:1.42!important;margin-top:3px!important}
+  body.field-mode .legend-more{font-size:1.08rem!important}
+  body.field-mode .field-guide{width:100%!important;margin:12px 0 0!important;padding:16px!important;border-radius:20px!important}
+  body.field-mode .field-guide h2{font-size:1.75rem!important;line-height:1.08!important}
+  body.field-mode .section-intro,body.field-mode .video-hint,body.field-mode .quick-selection-note{font-size:1.14rem!important;line-height:1.48!important;font-weight:750!important}
+  body.field-mode .quick-grid{display:grid!important;grid-template-columns:1fr!important;gap:11px!important}
+  body.field-mode .quick-card{width:100%!important;min-height:82px!important;padding:13px 14px!important;border-radius:20px!important}
+  body.field-mode .quick-card img{width:58px!important;height:58px!important;flex-basis:58px!important}
+  body.field-mode .quick-card b{font-size:1.22rem!important;line-height:1.18!important}
+  body.field-mode .space-grid{grid-template-columns:1fr!important;gap:15px!important}
   body.field-mode .space-card{width:100%!important;border-radius:20px!important}
-  body.field-mode .space-card h3{font-size:1.35rem!important;line-height:1.08!important}
-  body.field-mode .space-card p{font-size:1.08rem!important;line-height:1.38!important}
+  body.field-mode .space-body{padding:17px!important}
+  body.field-mode .space-card h3{font-size:1.55rem!important;line-height:1.1!important}
+  body.field-mode .space-card p{font-size:1.18rem!important;line-height:1.46!important}
+  body.field-mode .tag{font-size:1rem!important;padding:8px 11px!important}
   body.field-mode .space-video{aspect-ratio:16/9.8!important}
+  body.field-mode .section-head h2{font-size:1.8rem!important;line-height:1.08!important}
+  body.field-mode .kicker{font-size:.98rem!important}
   body.field-mode .drawer{position:fixed!important;inset:0!important;left:0!important;right:0!important;width:100vw!important;max-width:100vw!important;max-height:100dvh!important;border-radius:0!important;padding:10px 12px calc(18px + var(--safe))!important;overflow:auto!important;transform:translateY(105%)!important}
   body.field-mode .drawer.open{transform:translateY(0)!important;display:block!important;background:linear-gradient(180deg,#fff,#effaff 55%,#f6fbf0)!important}
   body.field-mode .drawer-top{position:sticky!important;top:0!important;z-index:9!important;margin:0 0 12px!important;border-radius:18px!important;padding:12px!important;background:linear-gradient(135deg,rgba(6,63,105,.96),rgba(11,143,202,.86))!important;color:#fff!important}
-  body.field-mode .drawer-top h3{font-size:1.65rem!important;color:#fff!important;line-height:1!important}
-  body.field-mode .close-x{width:64px!important;height:64px!important;min-width:64px!important;border-radius:50%!important;background:#063f69!important;color:white!important;font-size:2.4rem!important;display:grid!important;place-items:center!important}
+  body.field-mode .drawer-top h3{font-size:1.9rem!important;color:#fff!important;line-height:1.05!important}
+  body.field-mode .drawer-type{font-size:1.08rem!important;color:#eaf8ff!important}
+  body.field-mode .close-x{width:66px!important;height:66px!important;min-width:66px!important;border-radius:50%!important;background:#063f69!important;color:white!important;font-size:2.5rem!important;display:grid!important;place-items:center!important}
   body.field-mode .drawer-media{width:100%!important;max-width:100%!important;margin:0 0 12px!important;border-radius:18px!important}
   body.field-mode .drawer-media video,body.field-mode .drawer-media .placeholder{max-height:34dvh!important;object-fit:cover!important}
-  body.field-mode .summary{font-size:1.08rem!important;margin:0 0 12px!important;border-left:8px solid #f58220!important}
+  body.field-mode .summary{font-size:1.26rem!important;line-height:1.5!important;margin:0 0 13px!important;border-left:8px solid #f58220!important}
   body.field-mode .drawer-context,body.field-mode .info-blocks,body.field-mode .aportes-split{grid-template-columns:1fr!important;width:100%!important;max-width:100%!important;margin:12px 0!important}
-  body.field-mode .info-block p,body.field-mode .aporte-card p{font-size:1.06rem!important;line-height:1.44!important}
+  body.field-mode .drawer-extra article{grid-template-columns:56px 1fr!important;padding:13px!important}
+  body.field-mode .drawer-extra article b{font-size:1.14rem!important;line-height:1.18!important}
+  body.field-mode .drawer-extra article p{font-size:1.16rem!important;line-height:1.46!important}
+  body.field-mode .info-block h4{font-size:1.18rem!important;line-height:1.2!important}
+  body.field-mode .info-block p,body.field-mode .aporte-card p{font-size:1.2rem!important;line-height:1.5!important}
+  body.field-mode .aporte-card h4{font-size:1.16rem!important;line-height:1.2!important}
+  body.field-mode .back-map{font-size:1.12rem!important;padding:15px!important}
 }
 @media (max-width:760px){.wrap{width:100%!important;max-width:100%!important;padding-left:12px!important;padding-right:12px!important}}
 .modal-content.fit img{max-width:96vw!important;max-height:calc(100dvh - 156px)!important;width:auto!important;height:auto!important;object-fit:contain!important;border-radius:0!important}.modal-content.fit.zoomed{display:block!important;place-items:unset!important;overflow:auto!important}.modal-content.fit.zoomed img{max-width:none!important;max-height:none!important;width:180vw!important;height:auto!important}
 </style>`;
   const js='<scr'+'ipt id="mobile-fix-final-script">'+`(function(){
  const qs=s=>document.querySelector(s),qsa=s=>Array.from(document.querySelectorAll(s));
+ const lectura={
+  'Bordes de cultivo o alambrado':'Buscá una franja continua con cobertura vegetal en el límite del lote o alambrado. Si no está totalmente limpia y conecta sectores, puede funcionar como corredor.',
+  'Franja vegetada':'Observá si la banda mantiene pastos, flores o cobertura sin cortes rasos. Su valor aumenta cuando conecta sectores y no deja suelo desnudo.',
+  'Bordes ribereños':'Confirmá que la vegetación acompañe el agua y proteja la orilla. Cuanto más continua sea la franja, mayor será su función de filtro y refugio.',
+  'Cortinas':'Revisá continuidad de la hilera, especies presentes y fallas. Una cortina útil protege del viento y también ofrece sombra, posaderos y conectividad.',
+  'Cercos vivos':'Miralo como un límite vivo: si acompaña el alambrado con arbustos, árboles o vegetación permanente, puede separar y conectar al mismo tiempo.',
+  'Bordes de caminos':'Revisá banquina, cuneta y préstamo: si conservan vegetación estable, pueden aportar cobertura y conexión sin ocupar superficie productiva.',
+  'Terraplén o bordes de vías férreas':'Observá el terraplén como corredor largo: su valor está en la continuidad, la vegetación espontánea y los pasos o alcantarillas asociados.',
+  'Franja de bosque nativo':'Identificá si es una franja arbolada nativa y continua. Prioridad: no fragmentarla y cuidar sus bordes.',
+  'Parque o área multifunción':'Reconocé árboles, plantas diversas y usos múltiples. Su aporte aumenta si combina sombra, flores, refugio y manejo de bajo disturbio.',
+  'Parche seminatural o refugio':'Si es un manchón poco intervenido o de bajo uso productivo, puede funcionar como refugio. Importa delimitarlo y evitar disturbios fuertes.',
+  'Parche natural':'Verificá si conserva vegetación natural o restaurada. Su valor aumenta cuando no queda aislado y se conecta con bordes o franjas.',
+  'Área natural':'Mirala como un sector de manejo especial: pastizal, bajo, bañado, bosque o laguna. Requiere reglas claras de uso y monitoreo.',
+  'Estructura clave':'Detectá el recurso puntual: poste, árbol muerto, tronco, molino, cavidad u hotel de insectos. Su valor depende de ofrecer refugio, posadero o cría.'
+ };
  function isMob(){return window.matchMedia('(max-width:900px)').matches||((navigator.maxTouchPoints||0)>0&&window.innerWidth<=1024)||/Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent||'')}
  function apply(){if(!isMob())return;document.body.classList.add('field-mode');qs('#modeBtn')?.classList.add('active');qs('#modeNormalBtn')?.classList.remove('active')}
  function stop(){qsa('#drawer video,#drawer audio').forEach(v=>{try{v.pause();v.currentTime=0;v.muted=true}catch(e){}})}
+ function patchLectura(){const t=(qs('#drawerTitle')?.textContent||'').trim();const txt=lectura[t];if(!txt)return;const boxes=qsa('.drawer-context article');for(const a of boxes){const b=(a.querySelector('b')?.textContent||'').trim();if(b==='Lectura rápida'){const p=a.querySelector('p');if(p&&p.textContent!==txt)p.textContent=txt;}}}
  function zoom(v){const z=qs('#zoomRange'),img=qs('#modalImage'),box=qs('.modal-content');if(!z||!img||!box)return;v=Math.max(0,Math.min(100,Number(v)||0));z.min=0;z.max=100;z.value=v;box.classList.add('fit');if(v===0){box.classList.remove('zoomed');img.style.width='auto';img.style.maxWidth='96vw';img.style.maxHeight='calc(100dvh - 156px)';img.style.height='auto'}else{box.classList.add('zoomed');img.style.width=(100+v*1.35)+'vw';img.style.maxWidth='none';img.style.maxHeight='none';img.style.height='auto'}}
- function init(){apply();const z=qs('#zoomRange');if(z){z.addEventListener('input',e=>{e.stopImmediatePropagation();zoom(z.value)},true);qs('#zoomOut')?.addEventListener('click',e=>{e.preventDefault();e.stopImmediatePropagation();zoom((+z.value||0)-10)},true);qs('#zoomIn')?.addEventListener('click',e=>{e.preventDefault();e.stopImmediatePropagation();zoom((+z.value||0)+10)},true);qs('#zoomFit')?.addEventListener('click',e=>{e.preventDefault();e.stopImmediatePropagation();zoom(0)},true);qs('#modalImage')?.addEventListener('click',()=>setTimeout(()=>zoom((+z.value||0)>0?0:60),0),true);zoom(0)}['#closeDrawer','#backToMap'].forEach(sel=>qs(sel)?.addEventListener('click',stop,true));document.addEventListener('keydown',e=>{if(e.key==='Escape')stop()},true)}
+ function init(){apply();const z=qs('#zoomRange');if(z){z.addEventListener('input',e=>{e.stopImmediatePropagation();zoom(z.value)},true);qs('#zoomOut')?.addEventListener('click',e=>{e.preventDefault();e.stopImmediatePropagation();zoom((+z.value||0)-10)},true);qs('#zoomIn')?.addEventListener('click',e=>{e.preventDefault();e.stopImmediatePropagation();zoom((+z.value||0)+10)},true);qs('#zoomFit')?.addEventListener('click',e=>{e.preventDefault();e.stopImmediatePropagation();zoom(0)},true);qs('#modalImage')?.addEventListener('click',()=>setTimeout(()=>zoom((+z.value||0)>0?0:60),0),true);zoom(0)}['#closeDrawer','#backToMap'].forEach(sel=>qs(sel)?.addEventListener('click',stop,true));document.addEventListener('keydown',e=>{if(e.key==='Escape')stop()},true);document.addEventListener('click',()=>setTimeout(patchLectura,80),true);const d=qs('#drawer');if(d)new MutationObserver(patchLectura).observe(d,{childList:true,subtree:true,characterData:true});setTimeout(patchLectura,300)}
  document.addEventListener('DOMContentLoaded',init);window.addEventListener('resize',()=>{if(isMob())apply()});window.addEventListener('orientationchange',()=>setTimeout(apply,250));
 })();`+'</scr'+'ipt>';
   try{
