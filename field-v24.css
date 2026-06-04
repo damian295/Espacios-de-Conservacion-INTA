@@ -1,0 +1,194 @@
+/* v24 puntual: logos, iconos sin superposición y fichas legibles */
+
+/* 1) Bloque de logos: solo dos elementos lado a lado, sin cuadro azul ni superposición */
+.brand-wall,
+body.mobile-field-v19.field-mode .brand-wall{
+  display:grid!important;
+  grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;
+  gap:18px!important;
+  align-items:center!important;
+  justify-items:center!important;
+  padding:12px 16px!important;
+  margin:18px 0 12px!important;
+  overflow:hidden!important;
+  background:#fff!important;
+  border:1px solid #b9dced!important;
+  border-radius:18px!important;
+  box-shadow:none!important;
+}
+.brand-wall > *,
+body.mobile-field-v19.field-mode .brand-wall > *{
+  width:100%!important;
+  min-width:0!important;
+  max-width:100%!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  overflow:hidden!important;
+  background:transparent!important;
+  box-shadow:none!important;
+  border:0!important;
+  transform:none!important;
+}
+.brand-wall img,
+.bio-logo,
+body.mobile-field-v19.field-mode .bio-logo{
+  display:block!important;
+  width:auto!important;
+  height:auto!important;
+  max-width:92%!important;
+  max-height:74px!important;
+  object-fit:contain!important;
+  transform:none!important;
+  filter:none!important;
+}
+.bid-card,
+body.mobile-field-v19.field-mode .bid-card{
+  width:100%!important;
+  height:auto!important;
+  min-height:74px!important;
+  padding:0!important;
+  background:transparent!important;
+  border:0!important;
+  border-left:0!important;
+  border-radius:0!important;
+  box-shadow:none!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  overflow:hidden!important;
+}
+.bid-mark{display:flex!important;align-items:center!important;justify-content:center!important;gap:9px!important;white-space:nowrap!important;max-width:100%!important;overflow:hidden!important;background:transparent!important;}
+.bid-icon{width:44px!important;height:44px!important;min-width:44px!important;border-radius:50%!important;background:linear-gradient(135deg,#0a5d87,#0d2d4c)!important;display:block!important;flex:0 0 44px!important;}
+.bid-word{font-size:2.28rem!important;line-height:.92!important;letter-spacing:-.08em!important;display:inline-block!important;}
+.bid-small,.bid-caption{font-size:.72rem!important;line-height:1!important;display:block!important;}
+@media(max-width:760px){
+  body.mobile-field-v19.field-mode .brand-wall{grid-template-columns:1fr 1fr!important;gap:14px!important;padding:11px 14px!important;}
+  body.mobile-field-v19.field-mode .bio-logo{max-height:66px!important;max-width:94%!important;}
+  body.mobile-field-v19.field-mode .bid-card{min-height:66px!important;}
+  body.mobile-field-v19.field-mode .bid-icon{width:38px!important;height:38px!important;min-width:38px!important;flex-basis:38px!important;}
+  body.mobile-field-v19.field-mode .bid-word{font-size:2rem!important;}
+  body.mobile-field-v19.field-mode .bid-small,body.mobile-field-v19.field-mode .bid-caption{font-size:.64rem!important;}
+}
+
+/* 2) Recuadros: icono real en columna propia; texto nunca debajo ni superpuesto */
+.mini-nav--actions{
+  gap:16px!important;
+  align-items:stretch!important;
+}
+.mini-nav--actions .mini-card{
+  display:grid!important;
+  grid-template-columns:72px minmax(0,1fr)!important;
+  column-gap:16px!important;
+  align-items:center!important;
+  min-height:104px!important;
+  padding:14px 18px!important;
+  overflow:hidden!important;
+}
+.mini-nav--actions .mini-card .ico{
+  grid-column:1!important;
+  grid-row:1!important;
+  width:64px!important;
+  height:64px!important;
+  min-width:64px!important;
+  max-width:64px!important;
+  background:transparent!important;
+  border:0!important;
+  box-shadow:none!important;
+  overflow:hidden!important;
+  justify-self:center!important;
+  align-self:center!important;
+  font-size:0!important;
+  color:transparent!important;
+}
+.mini-nav--actions .mini-card .ico::before{
+  content:""!important;
+  display:block!important;
+  width:64px!important;
+  height:64px!important;
+  background-repeat:no-repeat!important;
+  background-position:center!important;
+  background-size:contain!important;
+}
+.mini-nav--actions .mini-card:nth-child(1) .ico::before{background-image:url('assets/iconos/icono-corazon.png')!important;}
+.mini-nav--actions .mini-card:nth-child(2) .ico::before{background-image:url('assets/iconos/icono-abeja.png')!important;}
+.mini-nav--actions .mini-card:nth-child(3) .ico::before{background-image:url('assets/iconos/icono-palita.png')!important;}
+.mini-nav--actions .mini-card > span,
+.mini-nav--actions .mini-card > div:not(.ico){
+  grid-column:2!important;
+  min-width:0!important;
+  overflow-wrap:break-word!important;
+}
+.mini-nav--actions .mini-card b{font-weight:950!important;line-height:1.14!important;}
+.mini-nav--actions .mini-card p{font-weight:520!important;line-height:1.22!important;margin-top:4px!important;}
+@media(max-width:760px){
+  body.mobile-field-v19.field-mode .mini-nav--actions .mini-card{grid-template-columns:76px minmax(0,1fr)!important;min-height:108px!important;padding:14px 16px!important;}
+  body.mobile-field-v19.field-mode .mini-nav--actions .mini-card .ico,
+  body.mobile-field-v19.field-mode .mini-nav--actions .mini-card .ico::before{width:68px!important;height:68px!important;min-width:68px!important;max-width:68px!important;}
+}
+
+/* 3) Lectura rápida y fichas en celular */
+@media(max-width:760px){
+  body.mobile-field-v19.field-mode .side-column .quick-card,
+  body.mobile-field-v19.field-mode .quick-card{
+    min-height:104px!important;
+    padding:14px!important;
+    gap:14px!important;
+  }
+  body.mobile-field-v19.field-mode .side-column .quick-card img,
+  body.mobile-field-v19.field-mode .quick-card img{
+    width:76px!important;
+    height:76px!important;
+    flex:0 0 76px!important;
+    object-fit:contain!important;
+  }
+  body.mobile-field-v19.field-mode .side-column .quick-card b,
+  body.mobile-field-v19.field-mode .quick-card b{
+    font-size:1.28rem!important;
+    line-height:1.12!important;
+  }
+  body.mobile-field-v19.field-mode .drawer-extra article{
+    grid-template-columns:82px minmax(0,1fr)!important;
+    gap:16px!important;
+    padding:16px!important;
+  }
+  body.mobile-field-v19.field-mode .drawer-extra img{
+    width:78px!important;
+    height:78px!important;
+  }
+  body.mobile-field-v19.field-mode .drawer-extra b,
+  body.mobile-field-v19.field-mode .aporte-head b,
+  body.mobile-field-v19.field-mode .aportes-split b,
+  body.mobile-field-v19.field-mode .info-block h4,
+  body.mobile-field-v19.field-mode .drawer h4,
+  body.mobile-field-v19.field-mode .drawer h5,
+  body.mobile-field-v19.field-mode .drawer-title-v23{
+    font-size:clamp(1.82rem,7.4vw,2.42rem)!important;
+    line-height:1.14!important;
+    font-weight:950!important;
+    color:#063f69!important;
+  }
+  body.mobile-field-v19.field-mode .drawer-extra p,
+  body.mobile-field-v19.field-mode .aporte-card p,
+  body.mobile-field-v19.field-mode .info-block p{
+    font-size:clamp(1.28rem,5.2vw,1.68rem)!important;
+    line-height:1.42!important;
+    font-weight:520!important;
+  }
+}
+
+/* 4) Botones: solo Activar sonido puede tener icono/latido; los otros quedan normales */
+.map-ctl-row .btn:not(.sound-btn-v23),
+.map-controls .btn:not(.sound-btn-v23),
+.map-controls--compact .btn:not(.sound-btn-v23){
+  background:#fff!important;
+  color:#063f69!important;
+  border:1px solid rgba(11,143,202,.18)!important;
+  box-shadow:none!important;
+}
+.map-ctl-row .btn:not(.sound-btn-v23)::before,
+.map-controls .btn:not(.sound-btn-v23)::before,
+.map-controls--compact .btn:not(.sound-btn-v23)::before{
+  content:none!important;
+  display:none!important;
+}
