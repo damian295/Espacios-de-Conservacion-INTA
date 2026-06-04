@@ -1,0 +1,27 @@
+/* v22 limpio: PNG reales, sonido por texto, fichas jerarquizadas */
+@keyframes soundPulseV22{0%{transform:scale(1);box-shadow:0 0 0 0 rgba(245,130,32,.72)}55%{transform:scale(1.14);box-shadow:0 0 0 10px rgba(245,130,32,0)}100%{transform:scale(1);box-shadow:0 0 0 0 rgba(245,130,32,0)}}
+
+/* Logos +Biodiversidad / BID: prolijos, sin superposición */
+.brand-wall{align-items:center!important;overflow:visible!important}.brand-wall img,.bio-logo{object-fit:contain!important;transform:none!important}.bid-card{overflow:hidden!important;box-sizing:border-box!important}.bid-word{line-height:1!important}.bid-caption{line-height:1.1!important}
+@media (orientation:portrait){
+  body.mobile-field-v19.field-mode .brand-wall{display:grid!important;grid-template-columns:1fr 1fr!important;gap:12px!important;align-items:center!important;margin:18px 0 10px!important;padding:10px!important;overflow:visible!important}
+  body.mobile-field-v19.field-mode .brand-wall > *{min-width:0!important;max-width:100%!important;display:flex!important;align-items:center!important;justify-content:center!important;overflow:hidden!important}
+  body.mobile-field-v19.field-mode .bio-logo{width:auto!important;max-width:92%!important;height:auto!important;max-height:76px!important;transform:none!important;object-fit:contain!important}
+  body.mobile-field-v19.field-mode .bid-card{width:100%!important;min-height:76px!important;height:76px!important;padding:8px 10px!important;display:flex!important;align-items:center!important;justify-content:center!important;gap:8px!important;transform:none!important}
+  body.mobile-field-v19.field-mode .bid-icon{width:42px!important;height:42px!important;min-width:42px!important}.mobile-field-v19.field-mode .bid-word{font-size:2.2rem!important}.mobile-field-v19.field-mode .bid-caption{font-size:.72rem!important}
+  body.mobile-field-v19.field-mode .nav-inner{min-height:86px!important;height:auto!important}.mobile-field-v19.field-mode .nav-logo img{width:70px!important;height:70px!important;max-width:70px!important;max-height:70px!important}.mobile-field-v19.field-mode .nav-logo b{font-size:1.05rem!important;line-height:1.05!important}
+}
+
+/* Intro de Campo */
+@media (orientation:portrait){body.mobile-field-v19.field-mode .hero-copy .intro{text-align:justify!important;text-align-last:left!important}}
+
+/* Iconos reales en los tres recuadros */
+.mini-nav--actions .mini-card .ico{background:transparent!important;border:0!important;box-shadow:none!important;color:transparent!important;display:grid!important;place-items:center!important;font-size:0!important;position:relative!important;overflow:visible!important;width:70px!important;height:70px!important;min-width:70px!important}.mini-nav--actions .mini-card .ico::before{content:""!important;width:70px!important;height:70px!important;display:block!important;background-repeat:no-repeat!important;background-position:center!important;background-size:contain!important}.mini-nav--actions .mini-card:nth-child(1) .ico::before{background-image:url('assets/iconos/icono-corazon.png')!important}.mini-nav--actions .mini-card:nth-child(2) .ico::before{background-image:url('assets/iconos/icono-abeja.png')!important}.mini-nav--actions .mini-card:nth-child(3) .ico::before{background-image:url('assets/iconos/icono-palita.png')!important}
+@media (orientation:portrait){body.mobile-field-v19.field-mode .mini-nav--actions .mini-card .ico{width:86px!important;height:86px!important;min-width:86px!important}.mobile-field-v19.field-mode .mini-nav--actions .mini-card .ico::before{width:86px!important;height:86px!important}}
+
+/* Sonido: solo al boton exacto marcado por JS */
+.sound-btn-v22{order:-20!important;background:#f58220!important;color:#fff!important;font-weight:1000!important;box-shadow:0 6px 16px rgba(245,130,32,.38)!important;border-color:#f58220!important}.sound-btn-v22::before{content:"🔊"!important;display:inline-grid!important;place-items:center!important;margin-right:7px!important;width:1.55em!important;height:1.55em!important;border-radius:999px!important;background:#fff!important;color:#f58220!important;animation:soundPulseV22 1.25s ease-out infinite!important;vertical-align:middle!important}.map-ctl-row,.map-controls,.map-controls--compact{display:flex!important;flex-wrap:wrap!important;gap:8px!important}
+
+/* Fichas: jerarquia clara */
+.drawer-title-v22{display:block!important;font-size:clamp(1.85rem,7.2vw,2.35rem)!important;line-height:1.15!important;font-weight:950!important;color:#063f69!important;margin:.15em 0 .45em!important;letter-spacing:-.015em!important}.drawer-title-v22::after{content:"";display:block;width:64px;height:4px;background:#f58220;border-radius:999px;margin:.28em 0 .05em}.drawer p,.drawer li,.drawer span,.drawer .summary,.drawer .drawer-context,.drawer .info-block p,.drawer .aporte-card p{font-weight:500!important}.drawer h3,.drawer h4,.drawer h5,.drawer b,.drawer strong,.drawer .drawer-title-v22{font-weight:950!important}
+@media (orientation:portrait){body.mobile-field-v19.field-mode .drawer-title-v22{font-size:clamp(2rem,8vw,2.55rem)!important}body.mobile-field-v19.field-mode .drawer p,body.mobile-field-v19.field-mode .drawer li,body.mobile-field-v19.field-mode .drawer span:not(.drawer-title-v22){font-size:clamp(1.36rem,5.5vw,1.78rem)!important;line-height:1.45!important}}
