@@ -1,0 +1,105 @@
+/* v29 final puntual: oficina opaco en móvil, aviso de fichas legible, anular selección, lectura rápida grande */
+
+/* 1) En Modo Campo + celular, el botón Modo oficina queda opaco/anulado visualmente */
+@media(max-width:760px){
+  body.mobile-field-v19.field-mode #modeNormalBtn,
+  body.mobile-field-v25.field-mode #modeNormalBtn{
+    opacity:.36!important;
+    filter:grayscale(1)!important;
+    background:#e8edf0!important;
+    color:#637785!important;
+    box-shadow:none!important;
+    cursor:not-allowed!important;
+  }
+  body.mobile-field-v19.field-mode #modeBtn,
+  body.mobile-field-v25.field-mode #modeBtn{
+    opacity:1!important;
+    filter:none!important;
+  }
+}
+
+/* 2) Ocultar definitivamente los tres recuadros solo en Modo Campo + celular */
+@media(max-width:760px){
+  body.mobile-field-v19.field-mode .mini-nav--actions,
+  body.mobile-field-v19.field-mode .mini-nav--actions.mini-nav,
+  body.mobile-field-v19.field-mode section.sections .mini-nav--actions,
+  body.mobile-field-v19.field-mode section.sections .mini-nav,
+  body.mobile-field-v25.field-mode .mini-nav--actions,
+  body.mobile-field-v25.field-mode section.sections .mini-nav--actions,
+  body.mobile-field-v25.field-mode section.sections .mini-nav{
+    display:none!important;
+    visibility:hidden!important;
+    height:0!important;
+    max-height:0!important;
+    min-height:0!important;
+    margin:0!important;
+    padding:0!important;
+    overflow:hidden!important;
+    pointer-events:none!important;
+  }
+}
+
+/* 3) Aviso de fichas sugeridas + botón Anular */
+#quickSelectionNote.quick-note-v29,
+.quick-note-v29{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:space-between!important;
+  gap:12px!important;
+  width:100%!important;
+  box-sizing:border-box!important;
+  padding:12px 14px!important;
+  margin:12px 0!important;
+  border-radius:18px!important;
+  background:linear-gradient(135deg,#fff7ec,#eef9ff)!important;
+  border:1px solid rgba(245,130,32,.34)!important;
+  color:#063f69!important;
+  font-weight:900!important;
+  line-height:1.24!important;
+  font-size:clamp(1.08rem,4.3vw,1.42rem)!important;
+}
+.quick-note-v29 .quick-note-text{
+  flex:1 1 auto!important;
+  min-width:0!important;
+}
+.quick-clear-v29{
+  flex:0 0 auto!important;
+  border:0!important;
+  border-radius:999px!important;
+  background:#f58220!important;
+  color:#fff!important;
+  font-weight:1000!important;
+  padding:10px 13px!important;
+  font-size:clamp(.95rem,3.8vw,1.16rem)!important;
+  box-shadow:0 7px 16px rgba(245,130,32,.22)!important;
+}
+@media(max-width:760px){
+  body.mobile-field-v19.field-mode #quickSelectionNote.quick-note-v29,
+  body.mobile-field-v25.field-mode #quickSelectionNote.quick-note-v29{
+    font-size:clamp(1.22rem,5.2vw,1.62rem)!important;
+    padding:14px!important;
+  }
+}
+
+/* 4) Icono de Lectura rápida en fichas: más grande en Modo Campo celular */
+@media(max-width:760px){
+  body.mobile-field-v19.field-mode .drawer-extra article:first-child,
+  body.mobile-field-v25.field-mode .drawer-extra article:first-child{
+    grid-template-columns:116px minmax(0,1fr)!important;
+    gap:18px!important;
+    align-items:center!important;
+  }
+  body.mobile-field-v19.field-mode .drawer-extra article:first-child img,
+  body.mobile-field-v25.field-mode .drawer-extra article:first-child img{
+    width:108px!important;
+    height:108px!important;
+    min-width:108px!important;
+    object-fit:contain!important;
+  }
+  body.mobile-field-v19.field-mode .drawer-extra article:first-child b,
+  body.mobile-field-v25.field-mode .drawer-extra article:first-child b{
+    font-size:clamp(1.65rem,6.6vw,2.1rem)!important;
+    line-height:1.12!important;
+    font-weight:1000!important;
+  }
+}
