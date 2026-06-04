@@ -2,15 +2,45 @@
 
 /* 1) En Modo Campo celular se ocultan los tres recuadros de acciones */
 @media(max-width:760px){
+  body.field-mode .mini-nav--actions,
   body.mobile-field-v19.field-mode .mini-nav--actions,
-  body.mobile-field-v25.field-mode .mini-nav--actions{
+  body.mobile-field-v25.field-mode .mini-nav--actions,
+  body.field-mode #openConcepts,
+  body.field-mode #openAportes,
+  body.field-mode #openStepsBtn,
+  body.mobile-field-v19.field-mode #openConcepts,
+  body.mobile-field-v19.field-mode #openAportes,
+  body.mobile-field-v19.field-mode #openStepsBtn,
+  body.mobile-field-v25.field-mode #openConcepts,
+  body.mobile-field-v25.field-mode #openAportes,
+  body.mobile-field-v25.field-mode #openStepsBtn{
     display:none!important;
     visibility:hidden!important;
     height:0!important;
     min-height:0!important;
+    max-height:0!important;
     margin:0!important;
     padding:0!important;
     overflow:hidden!important;
+    pointer-events:none!important;
+  }
+
+  /* Modo oficina queda blanquecino/anulado solo en celular */
+  body.field-mode #modeNormalBtn,
+  body.mobile-field-v19.field-mode #modeNormalBtn,
+  body.mobile-field-v25.field-mode #modeNormalBtn{
+    background:#eef3f5!important;
+    color:#7d909b!important;
+    opacity:.42!important;
+    filter:grayscale(1)!important;
+    box-shadow:inset 0 0 0 1px rgba(120,145,160,.22)!important;
+    cursor:not-allowed!important;
+  }
+  body.field-mode #modeBtn,
+  body.mobile-field-v19.field-mode #modeBtn,
+  body.mobile-field-v25.field-mode #modeBtn{
+    opacity:1!important;
+    filter:none!important;
   }
 }
 
@@ -71,12 +101,17 @@ input[type="range"],
 }
 .video-hint .pulse-dot.map-ready-v28::after{content:""!important;}
 @media(max-width:760px){
+  body.field-mode .video-hint,
   body.mobile-field-v19.field-mode .video-hint,
   body.mobile-field-v25.field-mode .video-hint{
     font-size:clamp(1.16rem,4.8vw,1.52rem)!important;
     line-height:1.25!important;
     align-items:center!important;
     gap:12px!important;
+    text-align:justify!important;
+    text-align-last:left!important;
+    word-spacing:normal!important;
+    letter-spacing:normal!important;
   }
   body.mobile-field-v19.field-mode .video-hint .pulse-dot.countdown-v28,
   body.mobile-field-v25.field-mode .video-hint .pulse-dot.countdown-v28{
@@ -84,5 +119,26 @@ input[type="range"],
     min-height:52px!important;
     font-size:1.28rem!important;
     border-radius:18px!important;
+  }
+}
+
+/* 4) Aviso de fichas sugeridas: tamaño legible y espacio reservado para Anular */
+.quick-selection-note:not(:empty){
+  font-size:clamp(1.08rem,4.2vw,1.42rem)!important;
+  line-height:1.25!important;
+  font-weight:900!important;
+  padding:12px 14px!important;
+  margin:12px 0!important;
+  border-radius:18px!important;
+  background:linear-gradient(135deg,#fff7ec,#eef9ff)!important;
+  border:1px solid rgba(245,130,32,.36)!important;
+  border-left:6px solid #f58220!important;
+  color:#063f69!important;
+}
+@media(max-width:760px){
+  body.field-mode .quick-selection-note:not(:empty),
+  body.mobile-field-v19.field-mode .quick-selection-note:not(:empty),
+  body.mobile-field-v25.field-mode .quick-selection-note:not(:empty){
+    font-size:clamp(1.22rem,5.2vw,1.62rem)!important;
   }
 }
