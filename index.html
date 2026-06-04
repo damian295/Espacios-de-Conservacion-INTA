@@ -1,4 +1,5 @@
 <!doctype html>
+<!-- FINAL_STANDALONE_GITHUB_LOCK_2026_06_04: subir este archivo completo como index.html, no usar loader/fetch. -->
 <html lang="es">
 <head>
 <meta charset="utf-8" />
@@ -603,6 +604,151 @@ body.field-mode .aporte-card{padding:12px;}
 }
 </style>
 
+
+<style id="github-final-lock-2026-06-04">
+/* BLOQUE FINAL DE PUBLICACIÓN GITHUB.
+   Este archivo debe subirse como index.html completo.
+   No usar cargadores ni fetch a commits viejos: eso fue lo que desconfiguró el modo campo. */
+
+/* Fichas: encabezado más oscuro y botón de cierre más visible */
+.drawer-top{
+  background:linear-gradient(135deg,rgba(6,63,105,.22),rgba(255,255,255,.94) 48%,rgba(66,115,38,.20))!important;
+  border:2px solid rgba(6,63,105,.34)!important;
+  box-shadow:0 14px 30px rgba(3,74,116,.16)!important;
+}
+.drawer h3{
+  color:#04385f!important;
+}
+.close-x{
+  background:#06466f!important;
+  color:#fff!important;
+  border:3px solid #fff!important;
+  box-shadow:0 8px 20px rgba(0,0,0,.24),0 0 0 2px rgba(6,63,105,.24)!important;
+}
+.close-x:hover,.close-x:focus{
+  background:#032f4d!important;
+  transform:scale(1.04);
+  outline:none!important;
+}
+
+/* Modo oficina: los tres cuadros de acciones no se pisan ni se solapan */
+@media(min-width:761px){
+  body:not(.field-mode) .mini-nav--actions{
+    grid-template-columns:repeat(3,minmax(0,1fr))!important;
+    align-items:stretch!important;
+    gap:16px!important;
+  }
+  body:not(.field-mode) .mini-nav--actions .mini-card{
+    min-width:0!important;
+    min-height:132px!important;
+    grid-template-columns:58px minmax(0,1fr)!important;
+    align-items:flex-start!important;
+    overflow:hidden!important;
+  }
+  body:not(.field-mode) .mini-nav--actions .mini-card span{
+    min-width:0!important;
+    overflow-wrap:anywhere!important;
+  }
+  body:not(.field-mode) .mini-nav--actions .mini-card b{
+    display:block!important;
+    font-size:1rem!important;
+    line-height:1.15!important;
+  }
+  body:not(.field-mode) .mini-nav--actions .mini-card p{
+    font-size:.9rem!important;
+    line-height:1.25!important;
+    margin:5px 0 0!important;
+  }
+}
+
+/* Celular en modo campo: apenas más compacto que la versión anterior */
+@media(max-width:760px){
+  html body.field-mode .hero-copy h1{
+    font-size:clamp(1.78rem,6.9vw,2.62rem)!important;
+    line-height:1.04!important;
+  }
+  html body.field-mode .section-head h2,
+  html body.field-mode .map-section-head h2,
+  html body.field-mode .field-guide h2{
+    font-size:clamp(1.42rem,5.9vw,2.14rem)!important;
+    line-height:1.07!important;
+  }
+  html body.field-mode .space-card h3,
+  html body.field-mode .drawer h3{
+    font-size:clamp(1.22rem,5.05vw,1.82rem)!important;
+    line-height:1.08!important;
+  }
+  html body.field-mode .space-card p,
+  html body.field-mode .legend-item p,
+  html body.field-mode .info-block p,
+  html body.field-mode .aporte-card p,
+  html body.field-mode .summary,
+  html body.field-mode .section-intro,
+  html body.field-mode .drawer-extra p,
+  html body.field-mode .value p,
+  html body.field-mode .map-controls p{
+    font-size:clamp(1.02rem,3.95vw,1.38rem)!important;
+    line-height:1.40!important;
+  }
+  html body.field-mode .quick-card b,
+  html body.field-mode .legend-item b,
+  html body.field-mode .mini-card b,
+  html body.field-mode .drawer-extra b,
+  html body.field-mode .info-block h4,
+  html body.field-mode .aporte-head b{
+    font-size:clamp(1.06rem,4.35vw,1.48rem)!important;
+    line-height:1.15!important;
+  }
+  html body.field-mode .mode-option,
+  html body.field-mode .filter,
+  html body.field-mode .tag,
+  html body.field-mode .back-map,
+  html body.field-mode .btn{
+    font-size:clamp(.96rem,3.6vw,1.20rem)!important;
+    line-height:1.18!important;
+  }
+  html body.field-mode .quick-card{
+    min-height:84px!important;
+    padding:11px!important;
+  }
+  html body.field-mode .quick-card img{
+    width:66px!important;
+    height:66px!important;
+    flex-basis:66px!important;
+  }
+  html body.field-mode .legend-symbol{
+    width:54px!important;
+    height:54px!important;
+    font-size:1.22rem!important;
+  }
+  html body.field-mode .close-x{
+    width:62px!important;
+    height:62px!important;
+    font-size:2rem!important;
+  }
+}
+
+/* En celular real, la plataforma ocupa todo el ancho; en PC, modo campo conserva forma tipo celular */
+@media(max-width:760px){
+  html body.field-mode .top-strip,
+  html body.field-mode .navbar,
+  html body.field-mode .hero,
+  html body.field-mode .interactive-section,
+  html body.field-mode .sections,
+  html body.field-mode footer{
+    width:100%!important;
+    max-width:100%!important;
+    margin-left:0!important;
+    margin-right:0!important;
+  }
+}
+@media(min-width:761px){
+  html body.field-mode .wrap{
+    width:min(420px,calc(100% - 16px))!important;
+  }
+}
+</style>
+
 </head>
 <body>
 <div class="top-strip"></div>
@@ -770,7 +916,7 @@ function renderCards(){const grid=$('#spaceGrid'); grid.innerHTML=''; let list=D
 function fichaIcon(d){if(d.id==='estructura')return 'estructura'; if(['riberenos','area','parche'].includes(d.id))return 'agua'; if(['cortinas','cercos','bosque'].includes(d.id))return 'arboles'; if(['camino','vias'].includes(d.id))return 'camino'; return 'alambrado';}
 function fichaComplementaria(d){
  const lr={'Bordes de cultivo o alambrado':'Buscá una franja continua con cobertura vegetal en el límite del lote o alambrado. Si no está totalmente limpia y conecta sectores, puede funcionar como corredor.','Franja vegetada':'Observá si hay cobertura continua, flores o pastos entre hileras o al borde del lote. Su valor está en reducir suelo desnudo y sostener fauna auxiliar.','Bordes ribereños':'Revisá si hay vegetación pegada al agua: juncos, arbustos o árboles de ribera. El borde filtra escorrentía y protege la fauna asociada al agua.','Cortinas':'Fijate si forma una línea viva capaz de cortar viento, dar sombra, conectar ambientes o servir de posadero. Su valor aumenta si tiene especies nativas y continuidad.','Cercos vivos':'Observá si el límite tiene vegetación permanente capaz de funcionar como borde vivo, corredor o refugio para fauna.','Bordes de caminos':'Mirá si hay vegetación entre el camino y el lote. Aunque parezca marginal, puede conectar ambientes y dar refugio a insectos y aves.','Terraplén o bordes de vías férreas':'Reconocé si la franja acompaña vías activas o inactivas y si conserva vegetación espontánea a lo largo de su recorrido.','Franja de bosque nativo':'Evaluá si el remanente conserva continuidad, estratos y especies nativas. No lo evalúes como improductivo: es refugio, conectividad y reserva de biodiversidad.','Parque o área multifunción':'Observá si hay diversidad de plantas, árboles o zonas de uso mixto cerca del casco o instalaciones. Puede funcionar como hábitat y recurso floral.','Parche seminatural o refugio':'Detectá manchones no productivos o poco intervenidos. Si conservan vegetación espontánea, pueden oficiar de refugio y reserva.','Parche natural':'Reconocé si la porción natural mantiene flora propia del ambiente, humedad o vinculación con bajos o humedales.','Área natural':'Mirala como un sector de manejo especial: pastizal, bajo, bañado, bosque o laguna. Requiere reglas claras de uso y monitoreo.','Estructura clave':'Detectá el recurso puntual: poste, árbol muerto, tronco, molino, cavidad u hotel de insectos. Su valor depende de ofrecer refugio, posadero o cría.'};
- const lectura=lr[d.title]||'Compará este espacio con lo que observás en el campo y revisá si cumple una función similar.';
+ const lectura=lr[d.title]||'Revisá si el espacio mantiene cobertura, continuidad o recursos útiles para fauna, suelo o producción.';
  const manejo=d.filter==='lineal'?'Priorizá continuidad, cobertura permanente y bajo disturbio para que el borde funcione como conexión.':d.filter==='areal'?'Delimitá el sector, evitá aislarlo y vinculalo con franjas, bordes o corredores cercanos.':'Ubicalo o conservalo como recurso puntual útil para fauna, polinizadores o control biológico.';
  return `<div class="drawer-extra drawer-context"><article><img src="assets/img/quick-icons/${fichaIcon(d)}.png" alt=""><div><b>Lectura rápida</b><p>${lectura}</p></div></article><article><span class="mini-symbol ${dotClass(d)}"></span><div><b>Criterio técnico</b><p>${manejo}</p></div></article></div>`;
 }
