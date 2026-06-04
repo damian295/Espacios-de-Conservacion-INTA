@@ -1,0 +1,157 @@
+/* v25: corrección de logos, tarjetas y bloqueo estable de modo campo móvil */
+
+/* Evita parpadeo y cambio tardío de modo en celular */
+body.mobile-field-v25.field-mode{background:linear-gradient(180deg,#f0fbff 0%,#f7fff3 100%)!important;}
+body.mobile-field-v25.field-mode .wrap{width:min(100%,calc(100% - 16px))!important;}
+
+/* Logos: +Biodiversidad y BID realmente uno al lado del otro */
+.brand-wall.brand-wall--balanced,
+body.mobile-field-v25.field-mode .brand-wall.brand-wall--balanced,
+body.mobile-field-v19.field-mode .brand-wall.brand-wall--balanced{
+  display:grid!important;
+  grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;
+  gap:18px!important;
+  align-items:center!important;
+  justify-items:center!important;
+  width:100%!important;
+  max-width:100%!important;
+  margin:18px 0 12px!important;
+  padding:12px 16px!important;
+  background:#fff!important;
+  border:1px solid #b9dced!important;
+  border-radius:18px!important;
+  overflow:hidden!important;
+  box-shadow:none!important;
+}
+.brand-wall--balanced .brand-divider,
+body.mobile-field-v25.field-mode .brand-wall--balanced .brand-divider,
+body.mobile-field-v19.field-mode .brand-wall--balanced .brand-divider{display:none!important;}
+.brand-wall--balanced .brand-card,
+body.mobile-field-v25.field-mode .brand-wall--balanced .brand-card,
+body.mobile-field-v19.field-mode .brand-wall--balanced .brand-card{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  width:100%!important;
+  min-width:0!important;
+  max-width:100%!important;
+  height:76px!important;
+  min-height:76px!important;
+  padding:0!important;
+  margin:0!important;
+  background:transparent!important;
+  border:0!important;
+  box-shadow:none!important;
+  overflow:hidden!important;
+  transform:none!important;
+}
+.brand-wall--balanced .bio-logo,
+.brand-wall--balanced .bid-logo-img,
+body.mobile-field-v25.field-mode .brand-wall--balanced .bio-logo,
+body.mobile-field-v25.field-mode .brand-wall--balanced .bid-logo-img,
+body.mobile-field-v19.field-mode .brand-wall--balanced .bio-logo,
+body.mobile-field-v19.field-mode .brand-wall--balanced .bid-logo-img{
+  display:block!important;
+  width:auto!important;
+  height:auto!important;
+  max-width:92%!important;
+  max-height:62px!important;
+  object-fit:contain!important;
+  transform:none!important;
+  filter:none!important;
+}
+@media(max-width:760px){
+  body.mobile-field-v25.field-mode .brand-wall.brand-wall--balanced,
+  body.mobile-field-v19.field-mode .brand-wall.brand-wall--balanced{grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;gap:14px!important;padding:11px 14px!important;margin:16px 0 10px!important;}
+  body.mobile-field-v25.field-mode .brand-wall--balanced .brand-card,
+  body.mobile-field-v19.field-mode .brand-wall--balanced .brand-card{height:68px!important;min-height:68px!important;}
+  body.mobile-field-v25.field-mode .brand-wall--balanced .bio-logo,
+  body.mobile-field-v25.field-mode .brand-wall--balanced .bid-logo-img,
+  body.mobile-field-v19.field-mode .brand-wall--balanced .bio-logo,
+  body.mobile-field-v19.field-mode .brand-wall--balanced .bid-logo-img{max-height:56px!important;max-width:92%!important;}
+}
+
+/* Intro: justificada sin aplastar contra el margen */
+body.mobile-field-v25.field-mode .hero-copy .intro,
+body.mobile-field-v19.field-mode .hero-copy .intro{
+  text-align:justify!important;
+  text-align-last:left!important;
+  margin-left:0!important;
+  margin-right:0!important;
+  word-spacing:normal!important;
+  letter-spacing:normal!important;
+  hyphens:auto!important;
+  max-width:none!important;
+}
+
+/* Recuadros: ícono centrado verticalmente respecto al bloque de texto */
+.mini-nav--actions .mini-card{
+  display:grid!important;
+  grid-template-columns:76px minmax(0,1fr)!important;
+  gap:16px!important;
+  align-items:center!important;
+  min-height:108px!important;
+  padding:14px 18px!important;
+}
+.mini-nav--actions .mini-card .ico{
+  grid-column:1!important;
+  align-self:center!important;
+  justify-self:center!important;
+  width:64px!important;
+  height:64px!important;
+  min-width:64px!important;
+  max-width:64px!important;
+  background:transparent!important;
+  border:0!important;
+  box-shadow:none!important;
+  overflow:hidden!important;
+  font-size:0!important;
+  color:transparent!important;
+}
+.mini-nav--actions .mini-card .ico::before{width:64px!important;height:64px!important;background-size:contain!important;background-position:center!important;background-repeat:no-repeat!important;}
+.mini-nav--actions .mini-card > span,
+.mini-nav--actions .mini-card > div:not(.ico){grid-column:2!important;align-self:center!important;min-width:0!important;}
+.mini-nav--actions .mini-card b{display:block!important;font-weight:950!important;line-height:1.14!important;margin:0!important;}
+.mini-nav--actions .mini-card p{font-weight:520!important;line-height:1.24!important;margin:4px 0 0!important;}
+@media(max-width:760px){
+  body.mobile-field-v25.field-mode .mini-nav--actions .mini-card,
+  body.mobile-field-v19.field-mode .mini-nav--actions .mini-card{grid-template-columns:78px minmax(0,1fr)!important;min-height:110px!important;padding:14px 16px!important;}
+  body.mobile-field-v25.field-mode .mini-nav--actions .mini-card .ico,
+  body.mobile-field-v25.field-mode .mini-nav--actions .mini-card .ico::before,
+  body.mobile-field-v19.field-mode .mini-nav--actions .mini-card .ico,
+  body.mobile-field-v19.field-mode .mini-nav--actions .mini-card .ico::before{width:68px!important;height:68px!important;min-width:68px!important;max-width:68px!important;}
+}
+
+/* Lectura rápida: iconos más grandes y útiles */
+@media(max-width:760px){
+  body.mobile-field-v25.field-mode .quick-card,
+  body.mobile-field-v25.field-mode .side-column .quick-card,
+  body.mobile-field-v19.field-mode .quick-card,
+  body.mobile-field-v19.field-mode .side-column .quick-card{min-height:106px!important;padding:14px!important;gap:14px!important;}
+  body.mobile-field-v25.field-mode .quick-card img,
+  body.mobile-field-v25.field-mode .side-column .quick-card img,
+  body.mobile-field-v19.field-mode .quick-card img,
+  body.mobile-field-v19.field-mode .side-column .quick-card img{width:78px!important;height:78px!important;flex:0 0 78px!important;object-fit:contain!important;}
+  body.mobile-field-v25.field-mode .quick-card b,
+  body.mobile-field-v25.field-mode .side-column .quick-card b,
+  body.mobile-field-v19.field-mode .quick-card b,
+  body.mobile-field-v19.field-mode .side-column .quick-card b{font-size:1.3rem!important;line-height:1.12!important;}
+}
+
+/* Títulos clave de fichas en celular */
+@media(max-width:760px){
+  body.mobile-field-v25.field-mode .info-blocks:before,
+  body.mobile-field-v19.field-mode .info-blocks:before,
+  body.mobile-field-v25.field-mode .aportes-split:before,
+  body.mobile-field-v19.field-mode .aportes-split:before{
+    font-size:clamp(1.75rem,7.2vw,2.35rem)!important;
+    line-height:1.12!important;
+    font-weight:1000!important;
+    color:#063f69!important;
+  }
+}
+
+/* Asegura que el usuario no vea modo oficina por rebote en celular */
+@media(max-width:760px){
+  body.mobile-field-v25:not(.field-mode){background:linear-gradient(180deg,#f0fbff 0%,#f7fff3 100%)!important;}
+}
