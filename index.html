@@ -9,21 +9,23 @@ body{margin:0;font-family:system-ui,Arial,sans-serif;background:#eef9ff;color:#0
 </style>
 </head>
 <body>
-<div class="box"><div class="spin"></div><b>Cargando plataforma corregida v24...</b></div>
+<div class="box"><div class="spin"></div><b>Cargando plataforma corregida v25...</b></div>
 <script>
 (async()=>{
   const isPhone=()=>/Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent||'')||((navigator.maxTouchPoints||0)>1&&Math.min(screen.width||0,screen.height||0)<900);
   const phone=isPhone();
-  const css='<link rel="stylesheet" href="field-v19.css?v=94a46fac"><link rel="stylesheet" href="field-v23.css?v=68519f6f"><link rel="stylesheet" href="field-v24.css?v=058c5ae9">';
-  const js='<scr'+'ipt id="field-v24-script">(()=>{const $=s=>document.querySelector(s);const phone='+phone+';function mark(){document.body.classList.toggle("mobile-field-v19",phone)}function campo(){mark();document.body.classList.add("field-mode");$("#modeBtn")?.classList.add("active");$("#modeNormalBtn")?.classList.remove("active")}function oficina(){mark();document.body.classList.remove("field-mode");$("#modeNormalBtn")?.classList.add("active");$("#modeBtn")?.classList.remove("active")}function tune(){document.querySelectorAll(".sound-btn-v22,.sound-btn-v23").forEach(b=>b.classList.remove("sound-btn-v22","sound-btn-v23"));document.querySelectorAll("button,.btn").forEach(b=>{const t=(b.textContent||"").trim().toLowerCase();if(t.includes("activar sonido")){b.classList.add("sound-btn-v23")}});const titles=["diagnóstico rápido del espacio","diagnostico rapido del espacio","aportes diferenciados","aportes a la producción","aportes a la produccion","aportes a la conservación","aportes a la conservacion"];document.querySelectorAll(".drawer *,.drawer-extra *,.info-block *,.aporte-card *").forEach(el=>{const tx=(el.textContent||"").trim().toLowerCase();if(titles.some(x=>tx===x||tx.startsWith(x)))el.classList.add("drawer-title-v23")})}function init(){mark();if(phone&&!document.body.classList.contains("field-mode"))campo();$("#modeBtn")?.addEventListener("click",()=>setTimeout(()=>{campo();tune()},0),true);$("#modeNormalBtn")?.addEventListener("click",()=>setTimeout(()=>{oficina();tune()},0),true);window.addEventListener("orientationchange",()=>setTimeout(()=>{mark();tune()},150));window.addEventListener("resize",()=>setTimeout(()=>{mark();tune()},150));tune();setInterval(tune,1200)}document.readyState==="loading"?document.addEventListener("DOMContentLoaded",init):init();})();</scr'+'ipt>';
+  const css='<link rel="stylesheet" href="field-v19.css?v=94a46fac"><link rel="stylesheet" href="field-v23.css?v=68519f6f"><link rel="stylesheet" href="field-v24.css?v=058c5ae9"><link rel="stylesheet" href="field-v25.css?v=5a56cc7f">';
+  const js='<scr'+'ipt id="field-v25-script">(()=>{const $=s=>document.querySelector(s);const phone='+phone+';function mark(){document.body.classList.toggle("mobile-field-v19",phone);document.body.classList.toggle("mobile-field-v25",phone)}function campo(manual=false){mark();document.body.classList.add("field-mode");$("#modeBtn")?.classList.add("active");$("#modeNormalBtn")?.classList.remove("active");if(manual&&phone)sessionStorage.setItem("intaMode","field")}function oficina(manual=false){mark();if(phone){campo(false);return}document.body.classList.remove("field-mode");$("#modeNormalBtn")?.classList.add("active");$("#modeBtn")?.classList.remove("active")}function tune(){if(phone&&!document.body.classList.contains("field-mode"))campo(false);document.querySelectorAll(".sound-btn-v22,.sound-btn-v23").forEach(b=>b.classList.remove("sound-btn-v22","sound-btn-v23"));document.querySelectorAll("button,.btn").forEach(b=>{const t=(b.textContent||"").trim().toLowerCase();if(t.includes("activar sonido")){b.classList.add("sound-btn-v23")}});const titles=["diagnóstico rápido del espacio","diagnostico rapido del espacio","aportes diferenciados","aportes a la producción","aportes a la produccion","aportes a la conservación","aportes a la conservacion"];document.querySelectorAll(".drawer *,.drawer-extra *,.info-block *,.aporte-card *").forEach(el=>{const tx=(el.textContent||"").trim().toLowerCase();if(titles.some(x=>tx===x||tx.startsWith(x)))el.classList.add("drawer-title-v23")})}function init(){mark();if(phone)campo(false);$("#modeBtn")?.addEventListener("click",()=>setTimeout(()=>{campo(true);tune()},0),true);$("#modeNormalBtn")?.addEventListener("click",()=>setTimeout(()=>{oficina(true);tune()},0),true);window.addEventListener("orientationchange",()=>setTimeout(()=>{mark();tune()},120));window.addEventListener("resize",()=>setTimeout(()=>{mark();tune()},120));tune();setInterval(tune,900)}document.readyState==="loading"?document.addEventListener("DOMContentLoaded",init):init();})();</scr'+'ipt>';
   try{
-    const r=await fetch('plataforma.html?v=v24-'+Date.now(),{cache:'no-store'});
+    const r=await fetch('plataforma.html?v=v25-'+Date.now(),{cache:'no-store'});
     let h=await r.text();
     h=h.replaceAll('Compará este espacio con lo que observás en el campo y revisá si cumple una función similar.','');
+    h=h.replaceAll('roquedal u hotel de insectos','hotel de insectos');
+    h=h.replaceAll('roquedal','');
     h=h.replace('</head>',css+'</head>').replace('</body>',js+'</body>');
-    if(phone) h=h.replace('<body>','<body class="field-mode mobile-field-v19">');
+    if(phone) h=h.replace('<body>','<body class="field-mode mobile-field-v19 mobile-field-v25">');
     document.open();document.write(h);document.close();
-  }catch(e){document.body.innerHTML='<div class="box"><b>No se pudo cargar la plataforma corregida v24.</b></div>'}
+  }catch(e){document.body.innerHTML='<div class="box"><b>No se pudo cargar la plataforma corregida v25.</b></div>'}
 })();
 </script>
 </body>
