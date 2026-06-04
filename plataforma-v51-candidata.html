@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Espacios de Conservación | V51 candidata</title>
+<style>
+html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#e9f6fb;font-family:system-ui,Arial,sans-serif}#app{position:fixed;inset:0;width:100vw;height:100dvh;border:0;background:#e9f6fb;visibility:hidden}.loader{position:fixed;inset:0;display:grid;place-items:center;background:#e9f6fb;color:#063f69;z-index:5;text-align:center}.loader b{display:block;font-weight:1000;font-size:clamp(1.25rem,5vw,1.7rem);line-height:1.28}#badge{position:fixed;left:8px;bottom:8px;z-index:999999;background:#0b8fca;color:#fff;border-radius:999px;padding:8px 11px;font:900 13px system-ui;box-shadow:0 5px 18px rgba(0,0,0,.25);pointer-events:none}
+</style>
+</head>
+<body>
+<div class="loader" id="loader"><b>Cargando V.51<br>Espacios de Conservación<br>INTA - BID</b></div>
+<iframe id="app" src="plataforma-v50-candidata.html?v=v51-base" title="Espacios de Conservación"></iframe>
+<div id="badge">v51</div>
+<script>
+(function(){
+  const app=document.getElementById('app');
+  const loader=document.getElementById('loader');
+  const phone=/Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent||'')||((navigator.maxTouchPoints||0)>1&&Math.min(screen.width||0,screen.height||0)<900);
+  const css=`
+    #v51-inner{position:fixed;right:8px;bottom:8px;z-index:999999;background:#0b8fca;color:#fff;border-radius:999px;padding:7px 10px;font:900 12px system-ui;box-shadow:0 5px 18px rgba(0,0,0,.22);pointer-events:none}
+    body.mobile-field-v47.field-mode .top-strip,body.mobile-field-v47.field-mode .navbar,body.mobile-field-v47.field-mode .nav-inner{background:linear-gradient(90deg,#1b6f32,#2c8538)!important;color:#fff!important}
+    body.mobile-field-v47.field-mode .nav-cta,body.mobile-field-v47.field-mode .full-btn,body.mobile-field-v47.field-mode a[href*='infografia'],body.mobile-field-v47.field-mode button[title*='Infografía'],body.mobile-field-v47.field-mode button[aria-label*='Infografía']{display:none!important;visibility:hidden!important;width:0!important;height:0!important;padding:0!important;margin:0!important;overflow:hidden!important}
+    body.mobile-field-v47.field-mode .nav-inner{min-height:94px!important;padding-right:10px!important}
+    body.mobile-field-v47.field-mode .nav-logo img{width:94px!important;height:94px!important;min-width:94px!important;object-fit:contain!important;background:rgba(255,255,255,.92)!important;border-radius:14px!important;padding:4px!important}
+    body.mobile-field-v47.field-mode .brand-wall{width:100%!important;max-width:100%!important;height:auto!important;min-height:126px!important;display:flex!important;align-items:center!important;justify-content:center!important;gap:16px!important;margin:10px auto 22px!important;padding:10px 10px 12px!important;box-sizing:border-box!important;background:#e9f6fb!important;border-radius:22px!important;position:relative!important;z-index:1!important;overflow:visible!important;border:1px solid rgba(11,143,202,.18)!important}
+    body.mobile-field-v47.field-mode .brand-wall img,body.mobile-field-v47.field-mode .brand-wall .bio-logo,body.mobile-field-v47.field-mode .brand-wall > img{width:40vw!important;max-width:172px!important;height:104px!important;max-height:104px!important;object-fit:contain!important;transform:none!important;position:static!important;margin:0!important;padding:4px!important;box-sizing:border-box!important;z-index:1!important;filter:drop-shadow(0 6px 12px rgba(0,80,120,.10))!important;background:transparent!important}
+    body.mobile-field-v47.field-mode .brand-wall .bid-card{width:40vw!important;max-width:172px!important;height:104px!important;min-height:104px!important;max-height:104px!important;margin:0!important;padding:6px!important;border-radius:18px!important;box-sizing:border-box!important;background:#e9f6fb!important;border:1px solid rgba(11,143,202,.25)!important;box-shadow:0 6px 14px rgba(3,74,116,.10)!important;display:flex!important;align-items:center!important;justify-content:center!important;position:static!important;z-index:1!important}
+    body.mobile-field-v47.field-mode .bid-icon{width:48px!important;height:48px!important}body.mobile-field-v47.field-mode .bid-word{font-size:2.45rem!important;line-height:.9!important}body.mobile-field-v47.field-mode .bid-small{font-size:.7rem!important}
+    body.mobile-field-v47.field-mode .mode-toggle,body.mobile-field-v47.field-mode .mode-options,body.mobile-field-v47.field-mode .mode-panel{margin-top:10px!important;position:relative!important;z-index:3!important;background:#e9f6fb!important;clear:both!important}
+    body.mobile-field-v47.field-mode .map-card{margin-bottom:0!important;border-bottom-left-radius:0!important;border-bottom-right-radius:0!important}
+    body.mobile-field-v47.field-mode .legend-card{margin-top:0!important;transform:none!important;border-top-left-radius:0!important;border-top-right-radius:0!important;background:#f2fbff!important;padding:12px 10px!important;display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:8px!important;align-items:stretch!important}
+    body.mobile-field-v47.field-mode .legend-card h3{grid-column:1 / -1!important;margin:0 0 4px!important;font-size:clamp(1.45rem,5vw,1.7rem)!important;line-height:1.05!important}
+    body.mobile-field-v47.field-mode .legend-item{display:grid!important;grid-template-columns:1fr!important;gap:4px!important;align-items:start!important;justify-items:center!important;text-align:center!important;margin:0!important;padding:8px 5px!important;border:1px solid rgba(11,143,202,.16)!important;border-radius:14px!important;background:#ffffff!important;min-width:0!important}
+    body.mobile-field-v47.field-mode .legend-symbol{width:42px!important;height:42px!important;font-size:1rem!important;margin:0 auto!important;border-width:3px!important}
+    body.mobile-field-v47.field-mode .legend-item b{font-size:clamp(.98rem,3.55vw,1.12rem)!important;line-height:1.02!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important;max-width:100%!important}
+    body.mobile-field-v47.field-mode .legend-item p{font-size:clamp(.83rem,3vw,.96rem)!important;line-height:1.1!important;margin:0!important;white-space:normal!important;overflow:visible!important;text-overflow:clip!important;max-width:100%!important}
+    body.mobile-field-v47.field-mode .legend-more{grid-column:1 / -1!important;text-align:center!important;font-size:.95rem!important;padding:2px 0 0!important}
+    body.mobile-field-v47.field-mode .drawer-top{background:linear-gradient(135deg,#0b6e99 0%,#0b8fca 68%,#4b8635 100%)!important}
+    body.mobile-field-v47.field-mode .close-x{background:#fff!important;border:4px solid #0b8fca!important;color:#063f69!important;font-size:0!important;display:grid!important;place-items:center!important}
+    body.mobile-field-v47.field-mode .close-x::before{content:'×'!important;font-size:2.7rem!important;font-weight:1000!important;line-height:1!important;color:#063f69!important;margin-top:-3px!important}
+  `;
+  function deepDocs(){
+    const docs=[];
+    function add(frame,depth){
+      if(!frame||depth>5)return;
+      try{
+        const d=frame.contentDocument;
+        if(d&&d.body){docs.push(d);d.querySelectorAll('iframe').forEach(f=>add(f,depth+1));}
+      }catch(e){}
+    }
+    add(app,0);
+    return docs;
+  }
+  function platformDoc(){
+    const docs=deepDocs();
+    return docs.find(d=>d.querySelector('.brand-wall')||d.querySelector('.legend-card'))||docs[docs.length-1]||null;
+  }
+  function hideBadges(){
+    deepDocs().forEach(d=>['badge','v47-inner','v48-inner','v49-inner','v50-inner'].forEach(id=>{const el=d.getElementById(id);if(el)el.style.display='none'}));
+  }
+  function fixText(doc){
+    const lh=doc.querySelector('.legend-card h3');if(lh)lh.textContent='Referencias';
+    const items=[...doc.querySelectorAll('.legend-item')];
+    items.forEach((it,i)=>{const p=it.querySelector('p');if(!p)return;if(i===0)p.textContent='Bordes y corredores.';if(i===1)p.textContent='Áreas naturales.';if(i===2)p.textContent='Refugio y nidificación.';});
+  }
+  function patch(){
+    hideBadges();
+    const doc=platformDoc();
+    if(!doc||!doc.body)return;
+    if(!doc.getElementById('v51-style')){const st=doc.createElement('style');st.id='v51-style';st.textContent=css;doc.head.appendChild(st)}
+    if(phone)doc.body.classList.add('mobile-field-v47','field-mode');
+    doc.querySelectorAll('.nav-cta,.full-btn').forEach(el=>{if((el.textContent||'').toLowerCase().includes('infografía')||(el.textContent||'').toLowerCase().includes('infografia'))el.style.setProperty('display','none','important')});
+    fixText(doc);
+    if(!doc.getElementById('v51-inner')){const b=doc.createElement('div');b.id='v51-inner';b.textContent='v51';doc.body.appendChild(b)}
+  }
+  app.addEventListener('load',()=>{setTimeout(()=>{patch();app.style.visibility='visible';loader.style.display='none'},900);setInterval(patch,500)});
+})();
+</script>
+</body>
+</html>
