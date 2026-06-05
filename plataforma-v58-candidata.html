@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Espacios de Conservación | V58 candidata</title>
+<style>
+html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#e9f6fb;font-family:system-ui,Arial,sans-serif}#app{position:fixed;inset:0;width:100vw;height:100dvh;border:0;background:#e9f6fb;visibility:hidden}.loader{position:fixed;inset:0;display:grid;place-items:center;background:#e9f6fb;color:#063f69;z-index:5;text-align:center}.loader b{display:block;font-weight:1000;font-size:clamp(1.25rem,5vw,1.7rem);line-height:1.28}#badge{position:fixed;left:8px;bottom:8px;z-index:999999;background:#0b8fca;color:#fff;border-radius:999px;padding:8px 11px;font:900 13px system-ui;box-shadow:0 5px 18px rgba(0,0,0,.25);pointer-events:none}
+</style>
+</head>
+<body>
+<div class="loader" id="loader"><b>Cargando V.58<br>Espacios de Conservación<br>INTA - BID</b></div>
+<iframe id="app" src="plataforma-v54-candidata.html?v=v58-base" title="Espacios de Conservación"></iframe>
+<div id="badge">v58</div>
+<script>
+(function(){
+  const app=document.getElementById('app');
+  const loader=document.getElementById('loader');
+  const css=`
+    #v58-inner{position:fixed;right:8px;bottom:8px;z-index:999999;background:#0b8fca;color:#fff;border-radius:999px;padding:7px 10px;font:900 12px system-ui;box-shadow:0 5px 18px rgba(0,0,0,.22);pointer-events:none}
+    @keyframes pulseHintV58{0%{transform:scale(1);box-shadow:0 0 0 0 rgba(11,143,202,.58)}70%{transform:scale(1.08);box-shadow:0 0 0 14px rgba(11,143,202,0)}100%{transform:scale(1);box-shadow:0 0 0 0 rgba(11,143,202,0)}}
+    .v58-action-icon{width:72px!important;height:72px!important;min-width:72px!important;object-fit:contain!important;border-radius:50%!important;background:transparent!important;box-shadow:none!important;display:block!important}
+    .v58-action-circle{display:grid!important;place-items:center!important;background:transparent!important;border:0!important;box-shadow:none!important;width:86px!important;height:86px!important;min-width:86px!important;overflow:visible!important}
+    .video-hint .pulse-dot{background:#0b8fca!important;color:#fff!important;animation:pulseHintV58 1.2s infinite!important;width:auto!important;height:auto!important;min-width:58px!important;min-height:46px!important;padding:7px 11px!important;border-radius:16px!important;display:inline-flex!important;align-items:center!important;justify-content:center!important;font-size:1.08rem!important;font-weight:1000!important;line-height:1!important;flex:0 0 auto!important}
+    .v58-fit-target{max-width:96vw!important;max-height:calc(100dvh - 150px)!important;width:auto!important;height:auto!important;object-fit:contain!important;transform-origin:center center!important;transition:transform .08s linear!important}
+    .modal,.modal.open,.modal-content,.lightbox{overflow:auto!important;touch-action:pan-x pan-y!important}
+  `;
+  function walkDocs(){
+    const docs=[];
+    function walk(win,depth){
+      if(!win||depth>8)return;
+      try{
+        const d=win.document;
+        if(d&&d.body){docs.push(d);d.querySelectorAll('iframe').forEach(f=>{try{walk(f.contentWindow,depth+1)}catch(e){}});}
+      }catch(e){}
+    }
+    try{walk(app.contentWindow,0)}catch(e){}
+    return docs;
+  }
+  function platformDoc(){
+    const docs=walkDocs();
+    return docs.find(d=>d.querySelector('.map-card')&&d.querySelector('.video-hint'))||docs[docs.length-1]||null;
+  }
+  function hideOldBadges(){
+    walkDocs().forEach(d=>['badge','v47-inner','v48-inner','v49-inner','v50-inner','v51-inner','v52-inner','v53-inner','v54-inner','v55-inner','v56-inner','v57-inner'].forEach(id=>{const el=d.getElementById(id);if(el)el.style.display='none'}));
+  }
+  function addStyle(doc){
+    if(!doc.getElementById('v58-style')){const st=doc.createElement('style');st.id='v58-style';st.textContent=css;doc.head.appendChild(st)}
+  }
+  function restoreIcons(doc){
+    const map=[
+      {text:'Por qué nos benefician',src:'assets/iconos/icono-corazon.png'},
+      {text:'Qué nos aportan',src:'assets/iconos/icono-abeja.png'},
+      {text:'Cómo implementarlos',src:'assets/iconos/icono-palita.png'}
+    ];
+    map.forEach(item=>{
+      const title=[...doc.querySelectorAll('h1,h2,h3,h4,b,strong,.mini-card,.value-card,.info-card,button,div')].find(el=>(el.textContent||'').includes(item.text));
+      if(!title)return;
+      const card=title.closest('button,.mini-card,.value-card,.info-card,.feature-card,.action-card,.value,.card,article,div')||title.parentElement;
+      if(!card||card.dataset.v58Icon==='done')return;
+      let holder=card.querySelector('.v58-action-circle')||card.querySelector('span,figure,.icon,.mini-icon,.value-icon,.circle');
+      if(!holder){holder=doc.createElement('span');card.insertBefore(holder,card.firstChild)}
+      holder.classList.add('v58-action-circle');
+      holder.innerHTML='';
+      const img=doc.createElement('img');img.className='v58-action-icon';img.alt='';img.src=item.src;
+      holder.appendChild(img);
+      card.dataset.v58Icon='done';
+    });
+  }
+  function restoreCounter(doc){
+    const hint=doc.querySelector('.video-hint');
+    if(!hint)return;
+    let dot=hint.querySelector('.pulse-dot');
+    if(!dot){dot=doc.createElement('span');dot.className='pulse-dot';hint.appendChild(dot)}
+    const video=doc.querySelector('#introVideo,video');
+    let remain=8;
+    if(video&&isFinite(video.duration)&&video.duration>0){remain=Math.max(0,Math.ceil(video.duration-(video.currentTime||0)))}
+    else if(video){remain=Math.max(0,8-Math.floor(video.currentTime||0))}
+    if(doc.body.classList.contains('map-ready')){dot.textContent='Mapa';}
+    else{dot.textContent=String(remain);}
+  }
+  function findModalTarget(doc,range){
+    let best=null,area=0;
+    const modal=range.closest('.modal,.modal-content,.lightbox')||doc.querySelector('.modal.open,.modal,.modal-content,.lightbox')||doc.body;
+    modal.querySelectorAll('img,canvas').forEach(el=>{
+      const r=el.getBoundingClientRect?.();const a=r?r.width*r.height:0;
+      if(a>area){area=a;best=el;}
+    });
+    if(best)return best;
+    doc.querySelectorAll('img,canvas').forEach(el=>{
+      const r=el.getBoundingClientRect?.();const a=r?r.width*r.height:0;
+      if(a>area){area=a;best=el;}
+    });
+    return best;
+  }
+  function fixMoreInfoZoom(doc){
+    doc.querySelectorAll('input[type="range"]').forEach(r=>{
+      if(r.__v58)return;r.__v58=true;
+      if(!r.min)r.min='0'; if(!r.max)r.max='100';
+      const apply=()=>{
+        const val=Number(r.value||0),min=Number(r.min||0),max=Number(r.max||100);
+        const pct=max>min?(val-min)/(max-min):val/100;
+        const scale=.45 + Math.max(0,Math.min(1,pct))*.55;
+        const target=findModalTarget(doc,r);
+        if(target){
+          target.classList.add('v58-fit-target');
+          target.style.setProperty('transform',`scale(${scale})`,'important');
+          target.style.setProperty('transform-origin','center center','important');
+          target.style.setProperty('max-width','96vw','important');
+          target.style.setProperty('max-height','calc(100dvh - 150px)','important');
+          target.style.setProperty('object-fit','contain','important');
+        }
+        ['.modal.open','.modal','.modal-content','.lightbox'].map(s=>doc.querySelector(s)).filter(Boolean).forEach(c=>{c.style.setProperty('overflow','auto','important');c.style.setProperty('touch-action','pan-x pan-y','important')});
+      };
+      ['input','change','pointermove','pointerup','touchmove','touchend','mousedown','mouseup'].forEach(ev=>r.addEventListener(ev,apply,{passive:true}));
+      setTimeout(apply,80);
+    });
+  }
+  function patch(){
+    hideOldBadges();
+    walkDocs().forEach(d=>{addStyle(d);fixMoreInfoZoom(d)});
+    const doc=platformDoc();
+    if(!doc||!doc.body)return;
+    restoreIcons(doc);
+    restoreCounter(doc);
+    if(!doc.getElementById('v58-inner')){const b=doc.createElement('div');b.id='v58-inner';b.textContent='v58';doc.body.appendChild(b)}
+  }
+  app.addEventListener('load',()=>{
+    setTimeout(()=>{patch();app.style.visibility='visible';loader.style.display='none'},900);
+    setInterval(patch,700);
+  });
+})();
+</script>
+</body>
+</html>
