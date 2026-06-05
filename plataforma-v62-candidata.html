@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Espacios de Conservación | V62 iconos</title>
+<style>
+html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#e9f6fb;font-family:system-ui,Arial,sans-serif}#app{position:fixed;inset:0;width:100vw;height:100dvh;border:0;background:#e9f6fb;visibility:hidden}.loader{position:fixed;inset:0;display:grid;place-items:center;background:#e9f6fb;color:#063f69;z-index:5;text-align:center}.loader b{display:block;font-weight:1000;font-size:clamp(1.25rem,5vw,1.7rem);line-height:1.28}#badge{position:fixed;left:8px;bottom:8px;z-index:999999;background:#0b8fca;color:#fff;border-radius:999px;padding:8px 11px;font:900 13px system-ui;box-shadow:0 5px 18px rgba(0,0,0,.25);pointer-events:none}
+</style>
+</head>
+<body>
+<div class="loader" id="loader"><b>Cargando V.62<br>Espacios de Conservación<br>INTA - BID</b></div>
+<iframe id="app" src="plataforma-v61-candidata.html?v=v62-base" title="Espacios de Conservación"></iframe>
+<div id="badge">v62</div>
+<script>
+(function(){
+  const app=document.getElementById('app');
+  const loader=document.getElementById('loader');
+  const css=`
+    #v62-inner{position:fixed;right:8px;bottom:8px;z-index:999999;background:#0b8fca;color:#fff;border-radius:999px;padding:7px 10px;font:900 12px system-ui;box-shadow:0 5px 18px rgba(0,0,0,.22);pointer-events:none}
+    #openConcepts .ico,#openAportes .ico,#openStepsBtn .ico{background:transparent!important;background-image:none!important;border:0!important;box-shadow:none!important;color:transparent!important;font-size:0!important;display:grid!important;place-items:center!important;width:72px!important;height:72px!important;min-width:72px!important;border-radius:50%!important;overflow:visible!important}
+    #openConcepts .ico img,#openAportes .ico img,#openStepsBtn .ico img{display:block!important;width:72px!important;height:72px!important;object-fit:contain!important;background:transparent!important;border:0!important;box-shadow:none!important;filter:none!important}
+  `;
+  function walkDocs(){
+    const docs=[];
+    function walk(win,depth){
+      if(!win||depth>10)return;
+      try{
+        const d=win.document;
+        if(d&&d.body){
+          docs.push(d);
+          d.querySelectorAll('iframe').forEach(f=>{try{walk(f.contentWindow,depth+1)}catch(e){}});
+        }
+      }catch(e){}
+    }
+    try{walk(app.contentWindow,0)}catch(e){}
+    return docs;
+  }
+  function hideOldBadges(){
+    walkDocs().forEach(d=>['badge','v47-inner','v48-inner','v49-inner','v50-inner','v51-inner','v52-inner','v53-inner','v54-inner','v55-inner','v56-inner','v57-inner','v58-inner','v59-inner','v60-inner','v61-inner'].forEach(id=>{const el=d.getElementById(id);if(el)el.style.display='none'}));
+  }
+  function addStyle(doc){
+    if(!doc.getElementById('v62-style')){const st=doc.createElement('style');st.id='v62-style';st.textContent=css;doc.head.appendChild(st)}
+  }
+  function setIcon(doc,id,src){
+    const ico=doc.querySelector(id+' .ico');
+    if(!ico)return false;
+    const img=ico.querySelector('img');
+    if(img && img.getAttribute('src')===src)return true;
+    ico.innerHTML='<img src="'+src+'" alt="" aria-hidden="true">';
+    return true;
+  }
+  function patchIcons(doc){
+    setIcon(doc,'#openConcepts','assets/iconos/icono-corazon.png');
+    setIcon(doc,'#openAportes','assets/iconos/icono-abeja.png');
+    setIcon(doc,'#openStepsBtn','assets/iconos/icono-palita.png');
+  }
+  function patch(){
+    hideOldBadges();
+    walkDocs().forEach(doc=>{
+      addStyle(doc);
+      patchIcons(doc);
+      if(doc.querySelector('#openConcepts')&&!doc.getElementById('v62-inner')){const b=doc.createElement('div');b.id='v62-inner';b.textContent='v62';doc.body.appendChild(b)}
+    });
+  }
+  app.addEventListener('load',()=>{
+    setTimeout(()=>{patch();app.style.visibility='visible';loader.style.display='none'},900);
+    setInterval(patch,600);
+  });
+})();
+</script>
+</body>
+</html>
