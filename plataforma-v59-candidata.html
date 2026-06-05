@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Espacios de Conservación | V59 candidata</title>
+<style>
+html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#e9f6fb;font-family:system-ui,Arial,sans-serif}#app{position:fixed;inset:0;width:100vw;height:100dvh;border:0;background:#e9f6fb;visibility:hidden}.loader{position:fixed;inset:0;display:grid;place-items:center;background:#e9f6fb;color:#063f69;z-index:5;text-align:center}.loader b{display:block;font-weight:1000;font-size:clamp(1.25rem,5vw,1.7rem);line-height:1.28}#badge{position:fixed;left:8px;bottom:8px;z-index:999999;background:#0b8fca;color:#fff;border-radius:999px;padding:8px 11px;font:900 13px system-ui;box-shadow:0 5px 18px rgba(0,0,0,.25);pointer-events:none}
+</style>
+</head>
+<body>
+<div class="loader" id="loader"><b>Cargando V.59<br>Espacios de Conservación<br>INTA - BID</b></div>
+<iframe id="app" src="plataforma-v54-candidata.html?v=v59-base" title="Espacios de Conservación"></iframe>
+<div id="badge">v59</div>
+<script>
+(function(){
+  const app=document.getElementById('app');
+  const loader=document.getElementById('loader');
+  const css=`
+    #v59-inner{position:fixed;right:8px;bottom:8px;z-index:999999;background:#0b8fca;color:#fff;border-radius:999px;padding:7px 10px;font:900 12px system-ui;box-shadow:0 5px 18px rgba(0,0,0,.22);pointer-events:none}
+    #openConcepts .ico,#openAportes .ico,#openStepsBtn .ico{background:transparent!important;background-image:none!important;box-shadow:none!important;border:0!important;display:grid!important;place-items:center!important;width:74px!important;height:74px!important;min-width:74px!important;border-radius:50%!important;overflow:visible!important;color:transparent!important;font-size:0!important}
+    #openConcepts .ico img,#openAportes .ico img,#openStepsBtn .ico img{display:block!important;width:72px!important;height:72px!important;object-fit:contain!important;background:transparent!important;border:0!important;box-shadow:none!important;filter:none!important}
+    @keyframes pulseHintV59{0%{transform:scale(1);box-shadow:0 0 0 0 rgba(11,143,202,.58)}70%{transform:scale(1.08);box-shadow:0 0 0 14px rgba(11,143,202,0)}100%{transform:scale(1);box-shadow:0 0 0 0 rgba(11,143,202,0)}}
+    .video-hint .pulse-dot{background:#0b8fca!important;color:#fff!important;animation:pulseHintV59 1.2s infinite!important;width:auto!important;height:auto!important;min-width:58px!important;min-height:46px!important;padding:7px 11px!important;border-radius:16px!important;display:inline-flex!important;align-items:center!important;justify-content:center!important;font-size:1.08rem!important;font-weight:1000!important;line-height:1!important;flex:0 0 auto!important;text-indent:0!important;overflow:visible!important}
+    .video-hint .pulse-dot::after{content:'s';font-size:.78em;margin-left:1px;font-weight:900}.map-ready .video-hint .pulse-dot::after{content:''!important}
+    #imageModal.open .modal-content.fit{display:flex!important;align-items:center!important;justify-content:center!important;overflow:auto!important;touch-action:pan-x pan-y!important}
+    #imageModal.open .modal-content.fit #modalImage{width:auto!important;max-width:96vw!important;max-height:calc(100dvh - 160px)!important;height:auto!important;object-fit:contain!important;transform-origin:center center!important;transition:transform .08s linear!important}
+  `;
+  function walkDocs(){
+    const docs=[];
+    function walk(win,depth){
+      if(!win||depth>10)return;
+      try{
+        const d=win.document;
+        if(d&&d.body){
+          docs.push(d);
+          d.querySelectorAll('iframe').forEach(f=>{try{walk(f.contentWindow,depth+1)}catch(e){}});
+        }
+      }catch(e){}
+    }
+    try{walk(app.contentWindow,0)}catch(e){}
+    return docs;
+  }
+  function hideOldBadges(){
+    walkDocs().forEach(d=>['badge','v47-inner','v48-inner','v49-inner','v50-inner','v51-inner','v52-inner','v53-inner','v54-inner','v55-inner','v56-inner','v57-inner','v58-inner'].forEach(id=>{const el=d.getElementById(id);if(el)el.style.display='none'}));
+  }
+  function addStyle(doc){
+    if(!doc.getElementById('v59-style')){const st=doc.createElement('style');st.id='v59-style';st.textContent=css;doc.head.appendChild(st)}
+  }
+  function setIcon(doc,id,src){
+    const ico=doc.querySelector(id+' .ico');
+    if(!ico)return false;
+    if(ico.dataset.v59Icon==='done')return true;
+    ico.innerHTML='<img src="'+src+'" alt="" aria-hidden="true">';
+    ico.dataset.v59Icon='done';
+    return true;
+  }
+  function restoreIcons(doc){
+    setIcon(doc,'#openConcepts','assets/iconos/icono-corazon.png');
+    setIcon(doc,'#openAportes','assets/iconos/icono-abeja.png');
+    setIcon(doc,'#openStepsBtn','assets/iconos/icono-palita.png');
+  }
+  function restoreCounter(doc){
+    const hint=doc.querySelector('.video-hint');
+    if(!hint)return;
+    let dot=hint.querySelector('.pulse-dot');
+    if(!dot){dot=doc.createElement('span');dot.className='pulse-dot';dot.setAttribute('aria-hidden','true');hint.appendChild(dot)}
+    const video=doc.querySelector('#introVideo');
+    let value=8;
+    if(video&&isFinite(video.duration)&&video.duration>0){value=Math.max(0,Math.ceil(video.duration-(video.currentTime||0)))}
+    else if(video){value=Math.max(0,8-Math.floor(video.currentTime||0))}
+    if(doc.body.classList.contains('map-ready')){dot.textContent='Mapa';dot.classList.add('map-ready-v59')}
+    else{dot.textContent=String(value);dot.classList.remove('map-ready-v59')}
+  }
+  function patchMoreInfoModal(doc){
+    const btn=doc.querySelector('#openInfoTop');
+    const modal=doc.querySelector('#imageModal');
+    const img=doc.querySelector('#modalImage');
+    const range=doc.querySelector('#zoomRange');
+    if(!btn||!modal||!img||!range)return;
+    const fit=()=>{
+      const title=(doc.querySelector('#modalTitle')?.textContent||'').toLowerCase();
+      const isMore=title.includes('concepto')||title.includes('general')||img.src.includes('recurso-que-son');
+      if(!modal.classList.contains('open')||!isMore)return;
+      doc.querySelector('.modal-content')?.classList.add('fit');
+      range.min='45';range.max='180';
+      if(!range.dataset.v59Touched){range.value='100'}
+      const scale=Math.max(.45,Math.min(1.8,Number(range.value||100)/100));
+      img.style.setProperty('width','auto','important');
+      img.style.setProperty('height','auto','important');
+      img.style.setProperty('max-width','96vw','important');
+      img.style.setProperty('max-height','calc(100dvh - 160px)','important');
+      img.style.setProperty('object-fit','contain','important');
+      img.style.setProperty('transform','scale('+scale+')','important');
+      img.style.setProperty('transform-origin','center center','important');
+    };
+    if(!btn.dataset.v59Modal){
+      btn.dataset.v59Modal='done';
+      btn.addEventListener('click',()=>setTimeout(fit,80),true);
+    }
+    if(!range.dataset.v59Modal){
+      range.dataset.v59Modal='done';
+      range.addEventListener('input',()=>{range.dataset.v59Touched='1';fit()},true);
+      range.addEventListener('change',()=>{range.dataset.v59Touched='1';fit()},true);
+    }
+    fit();
+  }
+  function patchDoc(doc){
+    addStyle(doc);
+    restoreIcons(doc);
+    restoreCounter(doc);
+    patchMoreInfoModal(doc);
+  }
+  function patch(){
+    hideOldBadges();
+    walkDocs().forEach(patchDoc);
+    const last=walkDocs().find(d=>d.querySelector('#openConcepts')&&d.querySelector('#introVideo'));
+    if(last&&!last.getElementById('v59-inner')){const b=last.createElement('div');b.id='v59-inner';b.textContent='v59';last.body.appendChild(b)}
+  }
+  app.addEventListener('load',()=>{
+    setTimeout(()=>{patch();app.style.visibility='visible';loader.style.display='none'},1000);
+    setInterval(patch,500);
+  });
+})();
+</script>
+</body>
+</html>
