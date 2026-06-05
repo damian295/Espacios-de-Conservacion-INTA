@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Espacios de Conservación | V57 candidata</title>
+<style>
+html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#e9f6fb;font-family:system-ui,Arial,sans-serif}#app{position:fixed;inset:0;width:100vw;height:100dvh;border:0;background:#e9f6fb;visibility:hidden}.loader{position:fixed;inset:0;display:grid;place-items:center;background:#e9f6fb;color:#063f69;z-index:5;text-align:center}.loader b{display:block;font-weight:1000;font-size:clamp(1.25rem,5vw,1.7rem);line-height:1.28}#badge{position:fixed;left:8px;bottom:8px;z-index:999999;background:#0b8fca;color:#fff;border-radius:999px;padding:8px 11px;font:900 13px system-ui;box-shadow:0 5px 18px rgba(0,0,0,.25);pointer-events:none}
+</style>
+</head>
+<body>
+<div class="loader" id="loader"><b>Cargando V.57<br>Espacios de Conservación<br>INTA - BID</b></div>
+<iframe id="app" title="Espacios de Conservación"></iframe>
+<div id="badge">v57</div>
+<script>
+(function(){
+  const app=document.getElementById('app');
+  const loader=document.getElementById('loader');
+  const phone=/Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent||'')||((navigator.maxTouchPoints||0)>1&&Math.min(screen.width||0,screen.height||0)<900);
+  app.src=phone?'plataforma-v54-candidata.html?v=v57-mobile':'plataforma.html?v=v57-pc-original';
+  const zoomCSS=`
+    input[type='range']{accent-color:#0b8fca!important;touch-action:none!important}
+    .v57-zoom-target{transition:transform .08s linear!important;will-change:transform!important}
+  `;
+  const mobileCSS=`
+    body.field-mode .map-section-head h2,body.field-mode .interactive-section .section-head h2{font-size:clamp(1.72rem,6.35vw,2.2rem)!important;line-height:1.05!important;letter-spacing:-.04em!important}
+    body.field-mode .legend-card{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:8px!important;align-items:stretch!important}
+    body.field-mode .legend-card h3{grid-column:1 / -1!important}
+    body.field-mode .legend-more{grid-column:auto!important;width:100%!important;height:auto!important;min-height:100%!important;display:grid!important;place-items:center!important;text-align:center!important;margin:0!important;padding:8px 5px!important;border:1px solid rgba(11,143,202,.16)!important;border-radius:14px!important;background:#fff!important;color:#0b5e86!important;font-size:clamp(.9rem,3.15vw,1rem)!important;line-height:1.06!important;font-weight:1000!important;box-shadow:none!important;white-space:normal!important}
+    #v57-inner{position:fixed;right:8px;bottom:8px;z-index:999999;background:#0b8fca;color:#fff;border-radius:999px;padding:7px 10px;font:900 12px system-ui;box-shadow:0 5px 18px rgba(0,0,0,.22);pointer-events:none}
+  `;
+  function walkDocs(){
+    const docs=[];
+    function walk(win,depth){
+      if(!win||depth>10)return;
+      try{
+        const d=win.document;
+        if(d&&d.body){
+          docs.push(d);
+          d.querySelectorAll('iframe').forEach(f=>{try{walk(f.contentWindow,depth+1)}catch(e){}});
+        }
+      }catch(e){}
+    }
+    try{walk(app.contentWindow,0)}catch(e){}
+    return docs;
+  }
+  function platformDocs(){
+    return walkDocs().filter(d=>d.querySelector('.map-card')||d.querySelector('.modal')||d.querySelector('.legend-card'));
+  }
+  function hideOldBadges(){
+    walkDocs().forEach(d=>['badge','v47-inner','v48-inner','v49-inner','v50-inner','v51-inner','v52-inner','v53-inner','v54-inner','v55-inner','v56-inner'].forEach(id=>{const el=d.getElementById(id);if(el)el.style.display='none'}));
+  }
+  function addStyle(doc,id,txt){
+    if(!doc||!doc.head||doc.getElementById(id))return;
+    const st=doc.createElement('style');st.id=id;st.textContent=txt;doc.head.appendChild(st);
+  }
+  function findZoomTarget(doc,range){
+    const roots=[];
+    let n=range;
+    for(let i=0;n&&i<10;i++,n=n.parentElement)roots.push(n);
+    roots.push(doc.querySelector('.modal.open'),doc.querySelector('.modal'),doc.querySelector('.modal-content'),doc.querySelector('.lightbox'),doc.body);
+    const selectors=['#modalImage','.modal-content img','.modal img','img[src*="infografia"]','img[src*="infografía"]','img[src*="plana"]','img[src*="concept"]','img[src*="aporte"]','.zoomable','canvas'];
+    for(const root of roots){
+      if(!root)continue;
+      for(const sel of selectors){const el=root.querySelector?.(sel);if(el&&el!==range)return el;}
+    }
+    let best=null,area=0;
+    doc.querySelectorAll('img,canvas').forEach(el=>{const r=el.getBoundingClientRect?.();const a=r?r.width*r.height:0;if(a>area){area=a;best=el;}});
+    return best;
+  }
+  function patchZoom(doc){
+    doc.querySelectorAll('input[type="range"]').forEach(r=>{
+      if(!r.__v57){
+        r.__v57=true;
+        const apply=()=>{
+          const val=Number(r.value||0),min=Number(r.min||0),max=Number(r.max||100);
+          const pct=max>min?(val-min)/(max-min):val/100;
+          const scale=1+(Math.max(0,Math.min(1,pct))*2.25);
+          const target=findZoomTarget(doc,r);
+          if(target){
+            target.classList.add('v57-zoom-target');
+            target.style.setProperty('transform',`scale(${scale})`,'important');
+            target.style.setProperty('transform-origin','center center','important');
+            target.style.setProperty('max-width','none','important');
+            target.style.setProperty('max-height','none','important');
+          }
+          ['.modal.open','.modal','.modal-content','.lightbox'].map(s=>doc.querySelector(s)).filter(Boolean).forEach(c=>{c.style.setProperty('overflow','auto','important');c.style.setProperty('touch-action','pan-x pan-y','important')});
+        };
+        ['input','change','pointermove','pointerup','touchmove','touchend','mousedown','mouseup','click'].forEach(ev=>r.addEventListener(ev,apply,{passive:true}));
+      }
+      try{r.dispatchEvent(new Event('input',{bubbles:true}))}catch(e){}
+    });
+  }
+  function mobileOnly(doc){
+    if(!phone)return;
+    const card=doc.querySelector('.legend-card');
+    let btn=doc.querySelector('.legend-more');
+    if(card&&btn){
+      card.appendChild(btn);
+      btn.textContent='Más información →';
+      btn.style.setProperty('grid-column','auto','important');
+      btn.style.setProperty('display','grid','important');
+      btn.style.setProperty('place-items','center','important');
+    }
+    doc.querySelectorAll('h1,h2,h3').forEach(h=>{
+      const t=(h.textContent||'').replace(/\s+/g,' ').trim().toLowerCase();
+      if(t.includes('explorá el paisaje')&&t.includes('abrí las fichas')){
+        h.style.setProperty('font-size','clamp(1.72rem,6.35vw,2.2rem)','important');
+        h.style.setProperty('line-height','1.05','important');
+        h.style.setProperty('letter-spacing','-.04em','important');
+      }
+    });
+    if(!doc.getElementById('v57-inner')){const b=doc.createElement('div');b.id='v57-inner';b.textContent='v57';doc.body.appendChild(b)}
+  }
+  function patch(){
+    hideOldBadges();
+    walkDocs().forEach(d=>{
+      addStyle(d,'v57-zoom-style',zoomCSS);
+      if(phone)addStyle(d,'v57-mobile-style',mobileCSS);
+      patchZoom(d);
+    });
+    platformDocs().forEach(mobileOnly);
+  }
+  app.addEventListener('load',()=>{
+    setTimeout(()=>{patch();app.style.visibility='visible';loader.style.display='none'},900);
+    setInterval(patch,700);
+  });
+})();
+</script>
+</body>
+</html>
