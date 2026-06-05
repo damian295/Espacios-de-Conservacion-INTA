@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Espacios de Conservación | V60 candidata</title>
+<style>
+html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#e9f6fb;font-family:system-ui,Arial,sans-serif}#app{position:fixed;inset:0;width:100vw;height:100dvh;border:0;background:#e9f6fb;visibility:hidden}.loader{position:fixed;inset:0;display:grid;place-items:center;background:#e9f6fb;color:#063f69;z-index:5;text-align:center}.loader b{display:block;font-weight:1000;font-size:clamp(1.25rem,5vw,1.7rem);line-height:1.28}#badge{position:fixed;left:8px;bottom:8px;z-index:999999;background:#0b8fca;color:#fff;border-radius:999px;padding:8px 11px;font:900 13px system-ui;box-shadow:0 5px 18px rgba(0,0,0,.25);pointer-events:none}
+</style>
+</head>
+<body>
+<div class="loader" id="loader"><b>Cargando V.60<br>Espacios de Conservación<br>INTA - BID</b></div>
+<iframe id="app" title="Espacios de Conservación"></iframe>
+<div id="badge">v60</div>
+<script>
+(function(){
+  const app=document.getElementById('app');
+  const loader=document.getElementById('loader');
+  const phone=/Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent||'')||((navigator.maxTouchPoints||0)>1&&Math.min(screen.width||0,screen.height||0)<900);
+  app.src='plataforma-v54-candidata.html?v=v60-base-'+Date.now();
+  const desktopCSS=`
+    @media (min-width:700px){
+      .legend-card{display:block!important;grid-template-columns:none!important;padding:22px!important;border-radius:26px!important}
+      .legend-card h3{display:block!important;margin:0 0 18px!important;grid-column:auto!important}
+      .legend-item{display:grid!important;grid-template-columns:56px 1fr!important;gap:12px!important;margin-bottom:18px!important;align-items:start!important;justify-items:stretch!important;text-align:left!important;padding:0!important;border:0!important;border-radius:0!important;background:transparent!important;min-width:0!important}
+      .legend-symbol{width:54px!important;height:54px!important;font-size:1.25rem!important;margin:0!important;border-width:3px!important}
+      .legend-item b{font-size:inherit!important;white-space:normal!important;overflow:visible!important;text-overflow:clip!important}
+      .legend-item p{font-size:.91rem!important;line-height:1.25!important;margin:3px 0 0!important;white-space:normal!important;overflow:visible!important;text-overflow:clip!important}
+      .legend-more{display:inline-block!important;grid-column:auto!important;border:0!important;background:transparent!important;color:var(--blue-deep)!important;font-weight:950!important;padding:0!important;margin:0!important;width:auto!important;height:auto!important;min-height:0!important;text-align:left!important;box-shadow:none!important}
+    }
+    .mini-nav--actions .mini-card .ico{background:transparent!important;background-image:none!important;border:0!important;box-shadow:none!important;color:transparent!important;font-size:0!important;display:grid!important;place-items:center!important;width:64px!important;height:64px!important;min-width:64px!important;overflow:visible!important}
+    .mini-nav--actions .mini-card .ico img{width:64px!important;height:64px!important;object-fit:contain!important;display:block!important;background:transparent!important;border:0!important;box-shadow:none!important;filter:none!important}
+  `;
+  const mobileCSS=`
+    @media (max-width:699px){
+      body.field-mode .map-section-head h2,body.field-mode .interactive-section .section-head h2{font-size:clamp(1.72rem,6.35vw,2.2rem)!important;line-height:1.05!important;letter-spacing:-.04em!important}
+      body.field-mode .legend-card{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:8px!important;align-items:stretch!important}
+      body.field-mode .legend-card h3{grid-column:1/-1!important}
+      body.field-mode .legend-item{display:grid!important;grid-template-columns:1fr!important;gap:4px!important;justify-items:center!important;text-align:center!important;padding:8px 5px!important;border:1px solid rgba(11,143,202,.16)!important;border-radius:14px!important;background:#fff!important;margin:0!important}
+      body.field-mode .legend-symbol{width:42px!important;height:42px!important;font-size:1rem!important;margin:0 auto!important}
+      body.field-mode .legend-item b{font-size:clamp(.98rem,3.55vw,1.12rem)!important;line-height:1.02!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important;max-width:100%!important}
+      body.field-mode .legend-item p{font-size:clamp(.83rem,3vw,.96rem)!important;line-height:1.1!important;margin:0!important;white-space:normal!important;overflow:visible!important;text-overflow:clip!important}
+      body.field-mode .legend-more{grid-column:auto!important;width:100%!important;min-height:100%!important;display:grid!important;place-items:center!important;text-align:center!important;margin:0!important;padding:8px 5px!important;border:1px solid rgba(11,143,202,.16)!important;border-radius:14px!important;background:#fff!important;color:#0b5e86!important;font-size:clamp(.9rem,3.15vw,1rem)!important;line-height:1.06!important;font-weight:1000!important;box-shadow:none!important;white-space:normal!important}
+    }
+  `;
+  const sharedCSS=`
+    #v60-inner{position:fixed;right:8px;bottom:8px;z-index:999999;background:#0b8fca;color:#fff;border-radius:999px;padding:7px 10px;font:900 12px system-ui;box-shadow:0 5px 18px rgba(0,0,0,.22);pointer-events:none}
+    @keyframes pulseHintV60{0%{transform:scale(1);box-shadow:0 0 0 0 rgba(11,143,202,.58)}70%{transform:scale(1.08);box-shadow:0 0 0 14px rgba(11,143,202,0)}100%{transform:scale(1);box-shadow:0 0 0 0 rgba(11,143,202,0)}}
+    .video-hint .pulse-dot{background:#0b8fca!important;color:#fff!important;animation:pulseHintV60 1.2s infinite!important;width:auto!important;height:auto!important;min-width:58px!important;min-height:46px!important;padding:7px 11px!important;border-radius:16px!important;display:inline-flex!important;align-items:center!important;justify-content:center!important;font-size:1.08rem!important;font-weight:1000!important;line-height:1!important;flex:0 0 auto!important;text-indent:0!important;overflow:visible!important}
+    .video-hint .pulse-dot::after{content:'s';font-size:.78em;margin-left:1px;font-weight:900}.map-ready .video-hint .pulse-dot::after{content:''!important}
+  `;
+  function walkDocs(){const docs=[];function walk(win,depth){if(!win||depth>10)return;try{const d=win.document;if(d&&d.body){docs.push(d);d.querySelectorAll('iframe').forEach(f=>{try{walk(f.contentWindow,depth+1)}catch(e){}});}}catch(e){}}try{walk(app.contentWindow,0)}catch(e){}return docs;}
+  function addStyle(doc,id,txt){if(!doc.getElementById(id)){const st=doc.createElement('style');st.id=id;st.textContent=txt;doc.head.appendChild(st)}}
+  function hideOldBadges(){walkDocs().forEach(d=>['badge','v47-inner','v48-inner','v49-inner','v50-inner','v51-inner','v52-inner','v53-inner','v54-inner','v55-inner','v56-inner','v57-inner','v58-inner','v59-inner'].forEach(id=>{const el=d.getElementById(id);if(el)el.style.display='none'}));}
+  function setIcon(doc,id,src){const ico=doc.querySelector(id+' .ico');if(!ico)return; if(ico.dataset.v60Icon==='done')return; ico.innerHTML='<img src="'+src+'" alt="" aria-hidden="true">'; ico.dataset.v60Icon='done';}
+  function restoreIcons(doc){setIcon(doc,'#openConcepts','assets/iconos/icono-corazon.png');setIcon(doc,'#openAportes','assets/iconos/icono-abeja.png');setIcon(doc,'#openStepsBtn','assets/iconos/icono-palita.png');}
+  function restoreDesktopRefs(doc){if(phone)return;const items=doc.querySelectorAll('.legend-card .legend-item');if(items[0])items[0].querySelector('p').textContent='Elementos que conectan hábitats: bordes, cortinas, caminos, vías, franjas y corredores.';if(items[1])items[1].querySelector('p').textContent='Áreas o parches que brindan hábitat y recursos: parques, refugios, áreas naturales.';if(items[2])items[2].querySelector('p').textContent='Sitios o elementos puntuales que aportan refugio, posaderos o nidificación.';const h=doc.querySelector('.legend-card h3');if(h)h.textContent='Leyenda';}
+  function mobileRefs(doc){if(!phone)return;const card=doc.querySelector('.legend-card');const btn=doc.querySelector('.legend-more');if(card&&btn){card.appendChild(btn);btn.textContent='Más información →';}const h=doc.querySelector('.legend-card h3');if(h)h.textContent='Referencias';}
+  function restoreCounter(doc){const hint=doc.querySelector('.video-hint');if(!hint)return;let dot=hint.querySelector('.pulse-dot');if(!dot){dot=doc.createElement('span');dot.className='pulse-dot';dot.setAttribute('aria-hidden','true');hint.appendChild(dot)}const video=doc.querySelector('#introVideo');let value=8;if(video&&isFinite(video.duration)&&video.duration>0){value=Math.max(0,Math.ceil(video.duration-(video.currentTime||0)))}else if(video){value=Math.max(0,8-Math.floor(video.currentTime||0))}dot.textContent=doc.body.classList.contains('map-ready')?'Mapa':String(value);}
+  function mobileTitle(doc){if(!phone)return;doc.querySelectorAll('h1,h2,h3').forEach(h=>{const t=(h.textContent||'').replace(/\s+/g,' ').trim().toLowerCase();if(t.includes('explorá el paisaje')&&t.includes('abrí las fichas')){h.style.setProperty('font-size','clamp(1.72rem,6.35vw,2.2rem)','important');h.style.setProperty('line-height','1.05','important');h.style.setProperty('letter-spacing','-.04em','important');}})}
+  function mobileMoreInfoModal(doc){if(!phone)return;const btn=doc.querySelector('#openInfoTop'),modal=doc.querySelector('#imageModal'),img=doc.querySelector('#modalImage'),range=doc.querySelector('#zoomRange');if(!btn||!modal||!img||!range)return;const apply=()=>{const title=(doc.querySelector('#modalTitle')?.textContent||'').toLowerCase();const isMore=title.includes('concepto')||img.src.includes('recurso-que-son');if(!modal.classList.contains('open')||!isMore)return;const cont=doc.querySelector('.modal-content');cont?.classList.add('fit');range.min='45';range.max='180';if(!range.dataset.v60Touched)range.value='100';const scale=Math.max(.45,Math.min(1.8,Number(range.value||100)/100));img.style.setProperty('width','auto','important');img.style.setProperty('height','auto','important');img.style.setProperty('max-width','96vw','important');img.style.setProperty('max-height','calc(100dvh - 160px)','important');img.style.setProperty('object-fit','contain','important');img.style.setProperty('transform','scale('+scale+')','important');img.style.setProperty('transform-origin','center center','important');if(cont){cont.style.setProperty('display','flex','important');cont.style.setProperty('align-items','center','important');cont.style.setProperty('justify-content','center','important');cont.style.setProperty('overflow','auto','important');}};if(!btn.dataset.v60){btn.dataset.v60='1';btn.addEventListener('click',()=>setTimeout(apply,90),true)}if(!range.dataset.v60){range.dataset.v60='1';range.addEventListener('input',()=>{range.dataset.v60Touched='1';setTimeout(apply,0)},true);range.addEventListener('change',()=>{range.dataset.v60Touched='1';setTimeout(apply,0)},true)}apply();}
+  function patch(){hideOldBadges();walkDocs().forEach(doc=>{addStyle(doc,'v60-shared',sharedCSS);addStyle(doc,'v60-desktop',desktopCSS);if(phone)addStyle(doc,'v60-mobile',mobileCSS);restoreIcons(doc);restoreDesktopRefs(doc);mobileRefs(doc);restoreCounter(doc);mobileTitle(doc);mobileMoreInfoModal(doc);if(doc.querySelector('#openConcepts')&&!doc.getElementById('v60-inner')){const b=doc.createElement('div');b.id='v60-inner';b.textContent='v60';doc.body.appendChild(b);}})}
+  app.addEventListener('load',()=>{setTimeout(()=>{patch();app.style.visibility='visible';loader.style.display='none'},1000);setInterval(patch,600)});
+})();
+</script>
+</body>
+</html>
