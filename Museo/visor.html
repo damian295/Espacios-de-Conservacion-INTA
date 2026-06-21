@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Museo | Visor 360</title>
+<style>
+html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#000;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;touch-action:none}
+#stage{position:fixed;inset:0;overflow:hidden;background:#000;cursor:grab}
+.pano{position:absolute;top:50%;height:100vh;width:auto;max-width:none;transform:translate3d(0,-50%,0);user-select:none;-webkit-user-drag:none;pointer-events:none;will-change:transform}
+#status{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);z-index:10;color:#fff;background:rgba(0,0,0,.70);border:1px solid rgba(255,255,255,.18);border-radius:14px;padding:12px 16px;font-size:14px;max-width:80vw;text-align:center;line-height:1.35}
+.hud{position:fixed;left:12px;right:12px;top:12px;z-index:20;display:flex;justify-content:space-between;gap:8px;pointer-events:none}.label{color:#fff;background:rgba(0,0,0,.58);border:1px solid rgba(255,255,255,.18);border-radius:14px;padding:8px 11px;font-size:12px;line-height:1.25;max-width:64vw}.label strong{display:block;font-size:13px;margin-bottom:2px}.btns{display:flex;gap:8px;pointer-events:auto}button{border:1px solid rgba(255,255,255,.25);border-radius:999px;padding:8px 11px;color:#fff;background:rgba(0,0,0,.62);font-weight:700;font-size:12px}
+#flat{display:none;position:fixed;inset:0;z-index:25;background:#000;overflow:auto;text-align:center}#flat img{width:100%;height:auto;display:block;margin:auto}#flat button{position:fixed;right:12px;top:12px;z-index:30}.hide{display:none!important}
+</style>
+</head>
+<body>
+<div id="stage"></div>
+<div id="status">Cargando foto del museo...</div>
+<div class="hud"><div class="label"><strong>Museo · vista panorámica</strong>Arrastrá con el dedo o mové el teléfono. Si falla, tocá “foto”.</div><div class="btns"><button id="flatBtn" type="button">foto</button></div></div>
+<div id="flat"><button id="closeFlat" type="button">salir</button></div>
+<script>
+const stage=document.getElementById('stage');
+const statusEl=document.getElementById('status');
+const flat=document.getElementById('flat');
+let imgs=[],imgW=0,x=0,dragging=false,lastX=0,loaded=false;
+function mod(n,m){return ((n%m)+m)%m}
+function layout(){if(!imgs.length)return; const r=1600/228; imgW=Math.max(innerWidth,innerHeight*r); imgs.forEach(im=>{im.style.height=innerHeight+'px'; im.style.width=imgW+'px'});}
+function render(){if(imgs.length&&imgW){const base=mod(x,imgW)-imgW; imgs.forEach((im,i)=>{im.style.transform=`translate3d(${base+i*imgW}px,-50%,0)`})} requestAnimationFrame(render)}
+function addImages(src){for(let i=0;i<3;i++){const im=new Image();im.className='pano';im.src=src;stage.appendChild(im);imgs.push(im)} const f=new Image();f.src=src;flat.appendChild(f); imgs[1].onload=()=>{loaded=true;layout();statusEl.classList.add('hide')}; imgs[1].onerror=()=>{statusEl.textContent='La imagen existe, pero el navegador no pudo mostrarla.'}; setTimeout(()=>{if(!loaded)statusEl.textContent='Sigue cargando. Tocá “foto” o recargá la página.'},3500);}
+async function init(){try{const html=await fetch('./index.html?source=' + Date.now(),{cache:'no-store'}).then(r=>{if(!r.ok)throw new Error('HTTP '+r.status);return r.text()}); const doc=new DOMParser().parseFromString(html,'text/html'); let src=''; const im=doc.querySelector('img#foto-vr'); if(im)src=im.getAttribute('src')||''; if(!src){const m=html.match(/data:image\/(?:jpeg|jpg|png);base64,[A-Za-z0-9+/=]+/); if(m)src=m[0];} if(!src)throw new Error('No encontré la imagen embebida'); addImages(src);}catch(e){statusEl.textContent='No pude leer la foto desde Museo/index.html. Avisame y lo hago por otra vía.'; console.error(e)}}
+function start(v){dragging=true;lastX=v;stage.style.cursor='grabbing'}function move(v){if(!dragging)return;const dx=v-lastX;lastX=v;x+=dx}function end(){dragging=false;stage.style.cursor='grab'}
+stage.addEventListener('mousedown',e=>start(e.clientX));addEventListener('mousemove',e=>move(e.clientX));addEventListener('mouseup',end);stage.addEventListener('touchstart',e=>start(e.touches[0].clientX),{passive:true});stage.addEventListener('touchmove',e=>move(e.touches[0].clientX),{passive:true});stage.addEventListener('touchend',end);
+addEventListener('deviceorientation',e=>{if(typeof e.alpha==='number'&&!dragging&&imgW)x=-(e.alpha/360)*imgW});addEventListener('resize',layout);
+document.getElementById('flatBtn').onclick=()=>{flat.style.display='block'};document.getElementById('closeFlat').onclick=()=>{flat.style.display='none'};
+init();render();
+</script>
+</body>
+</html>
