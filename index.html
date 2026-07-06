@@ -841,6 +841,97 @@ function init(){renderHotspots(); renderQuick(); renderCards(); renderResources(
 $('#closeModal').addEventListener('click',closeImageModal); const z=$('#zoomRange'), im=$('#modalImage'); function setZ(v){v=Math.max(80,Math.min(230,v)); z.value=v; const c=document.querySelector('.modal-content'); c.classList.add('manual-zoom'); c.classList.remove('zoomed'); c.style.setProperty('--modal-zoom',v+'%'); im.style.width=v+'%'; im.style.maxWidth='none'; im.style.maxHeight='none';} $('#zoomOut').addEventListener('click',()=>setZ(+z.value-15)); $('#zoomIn').addEventListener('click',()=>setZ(+z.value+15)); $('#zoomFit').addEventListener('click',()=>setZ(100)); z.addEventListener('input',()=>{document.querySelector('.modal-content').classList.remove('zoomed'); setZ(+z.value)}); im.addEventListener('click',()=>{const c=document.querySelector('.modal-content'); if(c.classList.contains('fit')){c.classList.remove('manual-zoom'); c.style.removeProperty('--modal-zoom'); c.classList.toggle('zoomed');}}); $$('.bottom-nav button').forEach(b=>b.addEventListener('click',()=>{document.getElementById(b.dataset.go).scrollIntoView({behavior:'smooth'}); $$('.bottom-nav button').forEach(x=>x.classList.remove('active')); b.classList.add('active');})); const media=matchMedia('(max-width:760px)'); const isMobileDevice=()=>/Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent||'')||(navigator.maxTouchPoints>1&&window.innerWidth<1200); const auto=()=>{if(!userMode)setFieldMode(isMobileDevice(),false)}; media.addEventListener?.('change',auto); window.addEventListener('resize',auto); auto(); playIntro(); setTimeout(()=>toast('Tocá el mapa, elegí una ficha o activá modo campo.'),900)}
 document.addEventListener('DOMContentLoaded',init);
 </script>
+  <style>
+/* Ajuste mínimo: barra final con un solo azul */
+.footer--institutional{
+  background:#0788c8!important;
+}
+
+.footer--institutional .wrap,
+.footer-main--image{
+  width:100%!important;
+  max-width:none!important;
+  margin:0!important;
+  padding:0!important;
+}
+
+.footer--institutional img{
+  display:block!important;
+  width:100%!important;
+  max-width:none!important;
+  height:auto!important;
+}
+</style>
+
+<script>
+/* Ajuste mínimo: audio de fichas sin loop y se corta al cerrar */
+(function(){
+  function getDrawerMedia(){
+    return document.querySelector('#drawerMedia video, #drawerMedia audio');
+  }
+
+  function stopDrawerMedia(){
+    const m = getDrawerMedia();
+    if(!m) return;
+    try{
+      m.pause();
+      m.currentTime = 0;
+      m.loop = false;
+      m.removeAttribute('loop');
+    }catch(e){}
+  }
+
+  function prepareDrawerMedia(){
+    const m = getDrawerMedia();
+    if(!m) return;
+
+    m.loop = false;
+    m.removeAttribute('loop');
+
+    let btn = document.getElementById('replayDrawerAudio');
+    if(!btn){
+      btn = document.createElement('button');
+      btn.id = 'replayDrawerAudio';
+      btn.type = 'button';
+      btn.textContent = 'Volver a escuchar';
+      btn.style.cssText = 'display:block;margin:10px auto 0;border:0;border-radius:999px;background:#0b8fca;color:white;font-weight:900;padding:9px 14px;cursor:pointer;';
+      const box = document.getElementById('drawerMedia');
+      if(box) box.insertAdjacentElement('afterend', btn);
+    }
+
+    btn.onclick = function(){
+      const x = getDrawerMedia();
+      if(!x) return;
+      try{
+        x.currentTime = 0;
+        x.play();
+      }catch(e){}
+    };
+  }
+
+  const drawerMedia = document.getElementById('drawerMedia');
+  if(drawerMedia){
+    new MutationObserver(prepareDrawerMedia).observe(drawerMedia, {
+      childList:true,
+      subtree:true
+    });
+  }
+
+  document.addEventListener('click', function(e){
+    if(e.target.closest('#closeDrawer, #backToMap')){
+      stopDrawerMedia();
+    }
+  }, true);
+
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape'){
+      stopDrawerMedia();
+    }
+  }, true);
+
+  prepareDrawerMedia();
+})();
+</script>
 </body>
 </html>
 
